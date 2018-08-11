@@ -1,0 +1,28 @@
+# Project: Falling
+# Makefile created by Dev-C++ 5.11
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+OBJ      = falling.o
+LINKOBJ  = falling.o
+LIBS     = -L"I:/rusk_rask/d/Dev-Cpp11_17/MinGW64/lib" -L"I:/rusk_rask/d/Dev-Cpp11_17/MinGW64/x86_64-w64-mingw32/lib" -L"I:/rusk_rask/d/Dev-Cpp11_17/SDL2-2.0.8/x86_64-w64-mingw32/lib" -L"I:/rusk_rask/d/Dev-Cpp11_17/SDL2-2.0.8/x86_64-w64-mingw32/lib" -lmingw32 -lSDL2main -lSDL2
+INCS     = -I"I:/rusk_rask/d/Dev-Cpp11_17/MinGW64/include" -I"I:/rusk_rask/d/Dev-Cpp11_17/MinGW64/x86_64-w64-mingw32/include" -I"I:/rusk_rask/d/Dev-Cpp11_17/MinGW64/lib/gcc/x86_64-w64-mingw32/7.1.0/include" -I"I:/rusk_rask/d/Dev-Cpp11_17/SDL2-2.0.8/x86_64-w64-mingw32/include/SDL2" -I"I:/rusk_rask/d/Dev-Cpp11_17/SDL2-2.0.8/x86_64-w64-mingw32/include/SDL2"
+CXXINCS  = -I"I:/rusk_rask/d/Dev-Cpp11_17/MinGW64/include" -I"I:/rusk_rask/d/Dev-Cpp11_17/MinGW64/x86_64-w64-mingw32/include" -I"I:/rusk_rask/d/Dev-Cpp11_17/MinGW64/lib/gcc/x86_64-w64-mingw32/7.1.0/include" -I"I:/rusk_rask/d/Dev-Cpp11_17/MinGW64/lib/gcc/x86_64-w64-mingw32/7.1.0/include/c++" -I"I:/rusk_rask/d/Dev-Cpp11_17/SDL2-2.0.8/x86_64-w64-mingw32/include/SDL2" -I"I:/rusk_rask/d/Dev-Cpp11_17/myIncludes" -I"I:/rusk_rask/d/Dev-Cpp11_17/SDL2-2.0.8/x86_64-w64-mingw32/include/SDL2"
+BIN      = Falling.exe
+CXXFLAGS = $(CXXINCS) -std=c++1z -pthread -fno-elide-constructors
+CFLAGS   = $(INCS) -std=c++1z -pthread -fno-elide-constructors
+RM       = rm.exe -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+falling.o: falling.cpp
+	$(CPP) -c falling.cpp -o falling.o $(CXXFLAGS)
