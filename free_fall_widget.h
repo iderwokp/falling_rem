@@ -1,7 +1,7 @@
 #ifndef FREE_FALL_WIDGET_H
 #define FREE_FALL_WIDGET_H
 #include <iostream>
-#include <widget.h>
+#include "widget.h"
 #include "ffgenerator.h"
 
 

@@ -4,7 +4,7 @@
 #define FFGENERATOR_H
 #include <fstream>
 #include <iostream>
-#include <widget.h>
+#include "widget.h"
 
 
 
