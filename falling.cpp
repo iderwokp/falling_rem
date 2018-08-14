@@ -53,11 +53,7 @@ int main(int argc, char** argv) {
         	ff.updateXY(windows_width);
         }
         
-//   		ffWidget.updateXY(windows_width);
-//   		ffWidget2.updateXY(windows_width);
-//   		ffWidget3.updateXY(windows_width);
-//   		ffWidget4.updateXY(windows_width);
-//	   
+
 	    SDL_RenderPresent(renderer);
         SDL_RenderClear(renderer);     
 		
