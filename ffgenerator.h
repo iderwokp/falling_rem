@@ -5,16 +5,17 @@
 #include <fstream>
 #include <iostream>
 #include "widget.h"
+#include "virt_coord_converter.h"
 
 
-
+//class Vc_conv;
 class FFGenerator {// Frittfall Generator
 	
 	
 	public:
 		FFGenerator() = default;
 			//	FFGenerator(Widget& wid, int bound, int scale, double lo = 1,double akslr = g_, double v0 = 0, double s0 = 0): widget{wid}, loss_{lo}, aksellerasjon_{akslr}, boundary_{bound}, scale_{scale}, v0_{v0}, s0_{s0} {
-			FFGenerator(Widget* wid, int bound, int scale, double v0 = 0, double s0 = 0): widget{wid}, boundary_{bound}, scale_{scale}, v0_{v0}, s0_{s0} {
+			FFGenerator(Widget* wid, int bound, int wbound, int scale, double v0 = 0, double s0 = 0): widget{wid}, boundary_{bound}, wall_boundary{wbound}, scale_{scale}, v0_{v0}, s0_{s0} {
 		
 			
 		
@@ -36,6 +37,7 @@ class FFGenerator {// Frittfall Generator
 		double loss_{};
 		double aksellerasjon_{g_};
 		int boundary_{};
+		int wall_boundary{};
 		int scale_{};
 		double v0_{0}; //Startfart
 		double va_{0};
@@ -54,8 +56,12 @@ class FFGenerator {// Frittfall Generator
 };
 
 void FFGenerator::set_widget_xy(int x) {
+	Vc_conv vc(Grav_heading::right, wall_boundary, boundary_);
+	
 	double y = next_distance();
-	widget->moveTo(x,y);
+	auto [xx, yy] = vc.convert_from_virtual(x, y);
+	//std::cout << "x = " << x << "   y = " << y << "\n";
+	widget->moveTo(xx,yy);
 	
 }
 
