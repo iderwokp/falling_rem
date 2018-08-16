@@ -7,6 +7,12 @@
 #include "widget.h"
 #include "virt_coord_converter.h"
 
+struct Velocity {
+	double v0_{0}; //Startfart
+	double va_{0};
+	double vtot_{0};
+	double vmax{0};	
+};
 
 //class Vc_conv;
 class FFGenerator {// Frittfall Generator
@@ -15,11 +21,7 @@ class FFGenerator {// Frittfall Generator
 	public:
 		FFGenerator() = default;
 			//	FFGenerator(Widget& wid, int bound, int scale, double lo = 1,double akslr = g_, double v0 = 0, double s0 = 0): widget{wid}, loss_{lo}, aksellerasjon_{akslr}, boundary_{bound}, scale_{scale}, v0_{v0}, s0_{s0} {
-			FFGenerator(Widget* wid, int bound, int wbound, int scale, double v0 = 0, double s0 = 0): widget{wid}, boundary_{bound}, wall_boundary{wbound}, scale_{scale}, v0_{v0}, s0_{s0} {
-		
-			
-		
-		}
+			FFGenerator(Widget* wid, int bound, int wbound, int scale, double v0 = 0, double s0 = 0): widget{wid}, boundary_{bound}, wall_boundary{wbound}, scale_{scale},  s0_{s0} {velocity.v0_= v0;	}
 		
 		//FFGenerator(Widget& widget, double akslr, double v0, double s0): aksellerasjon_{akslr}, v0_{v0}, s0_{s0} {}
 		double next_distance(); //I en loop, vil denne gi neste Y-koordinat
@@ -39,12 +41,13 @@ class FFGenerator {// Frittfall Generator
 		int boundary_{};
 		int wall_boundary{};
 		int scale_{};
-		double v0_{0}; //Startfart
-		double va_{0};
-		double vtot_{0};
+		Velocity velocity{0, 0, 0, 0};
+		//double v0_{0}; //Startfart
+//		double va_{0};
+//		double vtot_{0};
 		double s0_{0};
 		int tid_{0};
-		double vmax{0};
+		//double vmax{0};
 		bool boost_{false};
 		double startY{0};
 		bool nedover{true};
@@ -56,7 +59,7 @@ class FFGenerator {// Frittfall Generator
 };
 
 void FFGenerator::set_widget_xy(int x) {
-	Vc_conv vc(Grav_heading::right, wall_boundary, boundary_);
+	Vc_conv vc(Grav_heading::down, wall_boundary, boundary_);
 	
 	double y = next_distance();
 	auto [xx, yy] = vc.convert_from_virtual(x, y);
@@ -74,18 +77,18 @@ double FFGenerator::next_distance() {
 double FFGenerator::retning_nedover() {
 	//s = v0*tid + (aksellerasjon_*tid*tid)/2
 
-	va_ = aksellerasjon_ * tid_;
+	velocity.va_ = aksellerasjon_ * tid_;
 	int s00 = s0_*scale_;
-	double s = s00 + v0_*tid_ + va_*tid_/2;
+	double s = s00 + velocity.v0_*tid_ + velocity.va_*tid_/2;
 	//	std::cout << "Nedover s0_ = " << s0_ << "   s = " << s << "\n";
-	vtot_ = v0_ + va_;
-	if(vmax<vtot_) vmax = vtot_;
+	velocity.vtot_ = velocity.v0_ + velocity.va_;
+	if(velocity.vmax<velocity.vtot_) velocity.vmax = velocity.vtot_;
 	if (s/scale_ >= boundary_-25) {//TODO: Denne sjekken stemmer vel ikke helt?
 	//	of << "\n";
 		nedover = false;
-		v0_ = vtot_*loss_;
+		velocity.v0_ = velocity.vtot_*loss_;
 		if(boost_) {
-			if (v0_<20) v0_ = vmax;
+			if (velocity.v0_<20) velocity.v0_ = velocity.vmax;
  		}
 		tid_ = 0;
 		s0_ = s/scale_;
@@ -97,16 +100,16 @@ double FFGenerator::retning_nedover() {
 
 double FFGenerator::retning_oppover() {
 
-	va_ = aksellerasjon_ * tid_;
+	velocity.va_ = aksellerasjon_ * tid_;
 	int s00 = s0_*scale_;
-	double s = s00 - v0_*tid_ + va_*tid_/2;
+	double s = s00 - velocity.v0_*tid_ + velocity.va_*tid_/2;
 	//std::cout << "Oppover s0_ = " << s0_ << "   s = " << s <<  "\n";
-	vtot_ = v0_ - va_;
+	velocity.vtot_ = velocity.v0_ - velocity.va_;
 	
-	if(vtot_ <= 0) {
+	if(velocity.vtot_ <= 0) {
 		//of << "\n";
 		nedover = true;
-		v0_ = 0;
+		velocity.v0_ = 0;
 		tid_= 0;
 		s0_ = s/scale_;
 	}

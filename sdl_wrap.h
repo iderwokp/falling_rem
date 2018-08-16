@@ -30,7 +30,7 @@ class  Sdl_wrap {
 		SDL_Renderer* renderer()const { return renderer_;}
 		
 		~Sdl_wrap() {
-			std::cout << "~Sdl_wrap()\n";
+			//std::cout << "~Sdl_wrap()\n";
 			SDL_DestroyRenderer(renderer_);
 			SDL_DestroyWindow(window_);
 		}
