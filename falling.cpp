@@ -45,7 +45,7 @@ int main(int argc, char** argv) {
 //    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{800,100}, 30, 20, -1, 0.9, true});
    
     
-	int index{400};
+//	int index{400};
 	while(!quit) {
 	//while(index--) {
         EventHandler(event, quit, windows_width, windows_height);
