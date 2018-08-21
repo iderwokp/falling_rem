@@ -39,7 +39,7 @@ class Widget {
         SDL_FreeSurface(surface);
 	}
 	public:
-	    Widget() = default;
+	    Widget() { std::cout << "Widget()\n" ; }
 	    Widget(std::string fn, SDL_Renderer* rend, Point p={0, 0}, int w = 0, int h = 0, int dx = 0, int dy = 0, int a= 0 ): filename{fn}, 
                                                                                                                     renderer{rend},
                                                                                                                     _startpoint{p},                                                                                                                    
@@ -49,7 +49,7 @@ class Widget {
                                                                                                                     _deltaY{dy},
                                                                                                                     _angle{a} {
 	        //std::cout << "Widget(................)\n";
-		//std::cout << "Widget() _startpoint = " << _startpoint.X << "," << _startpoint.Y << "\n";
+		std::cout << "Widget(....)\n"; // _startpoint = " << _startpoint.X << "," << _startpoint.Y << "\n";
 	        init();
 	        
 	    }
@@ -62,10 +62,11 @@ class Widget {
                                 _deltaX{other._deltaX},
                                 _deltaY{other._deltaY},
                                 _angle{other._angle} {
-           // std::cout << "Widget(Widget&)\n";
+           std::cout << "Widget(Widget&)\n";
 	        init();
 	    }
 	    Widget& operator=(const Widget& other) {//TODO: Sjekk denne. 
+	    	std::cout << "Widget operator=(Widget&)\n";
 	    	if(this==&other) return *this;
             destroy();
             filename = other.filename;
@@ -105,7 +106,7 @@ class Widget {
             SDL_RenderCopyEx(renderer, texture, NULL, &_rect,_angle,nullptr,SDL_FLIP_NONE);	        
 	    }
 		~Widget() {
-		    //std::cout << "~Widget()\n";
+		    std::cout << "~Widget()\n";
 		    destroy();
 		}
 		int& angle()  {

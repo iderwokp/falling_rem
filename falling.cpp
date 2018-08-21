@@ -33,7 +33,7 @@ int main(int argc, char** argv) {
     SDL_Window* window = sdlwrap.window();
     SDL_Renderer* renderer = sdlwrap.renderer();
     
-    std::vector<Free_fall_widget> ffws(10);
+    std::vector<Free_fall_widget> ffws(1);
    
     ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{300,100}, 30, 20, 1, 0.9, true});
 //    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{1200,0}, 30, 20, -1, 0.9, true});

@@ -15,6 +15,7 @@ class  Sdl_wrap {
 	
 	public:
 		Sdl_wrap(const std::string& wn, int w, int h): window_name{wn},  width{w},height{h} {
+			std::cout << "Sdl_wrap()\n";
 			window_ = SDL_CreateWindow(window_name.c_str(),xPos, yPos, width, height, flags);
 			renderer_ = SDL_CreateRenderer(window_, -1, 0);
 			
@@ -30,7 +31,7 @@ class  Sdl_wrap {
 		SDL_Renderer* renderer()const { return renderer_;}
 		
 		~Sdl_wrap() {
-			//std::cout << "~Sdl_wrap()\n";
+			std::cout << "~Sdl_wrap()\n";
 			SDL_DestroyRenderer(renderer_);
 			SDL_DestroyWindow(window_);
 		}
