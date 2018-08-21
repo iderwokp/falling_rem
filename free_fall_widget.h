@@ -31,8 +31,8 @@ class  Free_fall_widget{
                                            
 											//ffgenerator{widget, boundary_, wall_boundary_, scale_, 0, static_cast<double>(_startpoint.Y)} 
 											 { 
-											 	 widget = std::make_unique<Widget>(filename_, renderer_, _startpoint, _width, _height, _deltaX);
-											 	 ffgenerator = FFGenerator(std::move(widget), boundary_, wall_boundary_, scale_, 0, static_cast<double>(_startpoint.Y)) ;
+											 	 widget = std::make_shared<Widget>(filename_, renderer_, _startpoint, _width, _height, _deltaX);
+											 	 ffgenerator = FFGenerator(widget, boundary_, wall_boundary_, scale_, 0, static_cast<double>(_startpoint.Y)) ;
 											 	std::cout << "Free_fall_widget() Constr\n ";// << _startpoint.X << "," << _startpoint.Y << "\n";
 											 	if(boost_) ffgenerator.boost() = true;
 											 	if(loss_ != 0.0) ffgenerator.loss() = loss_;
@@ -79,8 +79,8 @@ class  Free_fall_widget{
 											{
 													std::cout << "Free_fall_widget(Copy)\n";
 												//std::unique_ptr<Widget>(new Widget{filename_, renderer_, _startpoint, _width, _height, _deltaX});
-												widget = std::make_unique<Widget>(filename_, renderer_, _startpoint, _width, _height, _deltaX);
-												ffgenerator = FFGenerator(std::move(widget), boundary_, wall_boundary_, scale_, 0, static_cast<double>(_startpoint.Y));
+												widget = std::make_shared<Widget>(filename_, renderer_, _startpoint, _width, _height, _deltaX);
+												ffgenerator = FFGenerator(widget, boundary_, wall_boundary_, scale_, 0, static_cast<double>(_startpoint.Y));
 												if(boost_) ffgenerator.boost() = true;
 											 	if(loss_ != 0.0) ffgenerator.loss() = loss_;
 											 	xPos = _startpoint.X;
@@ -100,8 +100,8 @@ class  Free_fall_widget{
             loss_ = rhs.loss_;
             boost_ = rhs.boost_;
             //delete widget;
-            widget = std::make_unique<Widget>(filename_, renderer_, _startpoint, _width, _height, _deltaX);
-			ffgenerator = FFGenerator(std::move(widget), boundary_, wall_boundary_, scale_, 0, static_cast<double>(_startpoint.Y)) ; // Kunne gjort ffgenerator = rhs.ffgenerator, men må da lage copy-constructor i ffgenerator (pga Widget* ?)
+            widget = std::make_shared<Widget>(filename_, renderer_, _startpoint, _width, _height, _deltaX);
+			ffgenerator = FFGenerator(widget, boundary_, wall_boundary_, scale_, 0, static_cast<double>(_startpoint.Y)) ; // Kunne gjort ffgenerator = rhs.ffgenerator, men må da lage copy-constructor i ffgenerator (pga Widget* ?)
 											
 			if(boost_) ffgenerator.boost() = true;
 		 	if(loss_ != 0.0) ffgenerator.loss() = loss_;
@@ -132,7 +132,7 @@ class  Free_fall_widget{
 		double loss_{0};
 		int _deltaX{0};
 		//Widget* widget{};
-		std::unique_ptr<Widget> widget{};
+		std::shared_ptr<Widget> widget{};
 		FFGenerator ffgenerator;
 		
 		void handle_side_crash(int);
