@@ -37,13 +37,13 @@ class  SDLSuTexWrap {
 			init(); //Lage ny texture og surface
 			return *this;
 		}
-		SDLSuTexWrap(SDLSuTexWrap&& rhs): filename{rhs.filename}, renderer_{rhs.renderer_}, surface_{rhs.surface_}, texture_{rhs.texture_}  {
+		SDLSuTexWrap(SDLSuTexWrap&& rhs) noexcept: filename{rhs.filename}, renderer_{rhs.renderer_}, surface_{rhs.surface_}, texture_{rhs.texture_}  {
 			rhs.surface_ = nullptr;
 			rhs.texture_ = nullptr;
 			rhs.renderer_ = nullptr;
 			rhs.filename = "";
 		}
-		SDLSuTexWrap& operator=(SDLSuTexWrap&& rhs) {
+		SDLSuTexWrap& operator=(SDLSuTexWrap&& rhs) noexcept {
 			destroy(); //slette gamle texture og surface
 			filename = rhs.filename; 
 			renderer_ = rhs.renderer_; 
@@ -57,13 +57,13 @@ class  SDLSuTexWrap {
 			
 		}
 		
-		SDL_Surface* surface() { return surface_; }
+		SDL_Surface* surface() const{ return surface_; }
 		void set_surface(SDL_Surface* s) { surface_ = s; }
 		
-		SDL_Renderer* renderer() { return renderer_; }
+		SDL_Renderer* renderer() const{ return renderer_; }
 		void set_renderer(SDL_Renderer* r) { renderer_ = r; }
 		
-		SDL_Texture* texture() { return texture_; }
+		SDL_Texture* texture() const{ return texture_; }
 		void set_texture(SDL_Texture* t) { texture_ = t; }
 		
 		

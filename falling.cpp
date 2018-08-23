@@ -25,8 +25,8 @@ int main(int argc, char** argv) {
 	
 	SDL_Event event;
 	bool quit{false};
-    const int windows_width {900};
-    const int windows_height {900};
+    const int windows_width {1100};
+    const int windows_height {700};
     SDL_Init(SDL_INIT_VIDEO);
     
     Sdl_wrap sdlwrap{std::string{"Falling"}, windows_width, windows_height};
@@ -36,13 +36,13 @@ int main(int argc, char** argv) {
     std::vector<Free_fall_widget> ffws(1);
    
     ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{300,100}, 30, 20, 1, 0.9, true});
-//    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{1200,0}, 30, 20, -1, 0.9, true});
-//    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{100,300}, 30, 20, 1, 0.9, true});
-//    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{900,500}, 30, 20, -1, 0.9, true});
-//    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{400,100}, 30, 20, -1, 0.9, true});
-//    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{1000,0}, 30, 20, -1, 0.9, true});
-//    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{150,200}, 30, 20, 1, 0.9, true});
-//    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{800,100}, 30, 20, -1, 0.9, true});
+    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{1200,0}, 30, 20, -1, 0.9, true});
+    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{100,300}, 30, 20, 1, 0.9, true});
+    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{900,500}, 30, 20, -1, 0.9, true});
+    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{400,100}, 30, 20, -1, 0.9, true});
+    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{1000,0}, 30, 20, -1, 0.9, true});
+    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{150,200}, 30, 20, 1, 0.9, true});
+    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{800,100}, 30, 20, -1, 0.9, true});
    
     
 //	int index{400};
