@@ -26,6 +26,8 @@ class FFGenerator {// Frittfall Generator
 		velocity.v0_= v0; 
 		std::cout << "FFGenerator(........) \n";
 		}
+		
+		~FFGenerator() { std::cout << "~FFGenerator(destruct) \n";}
 		//FFGenerator(Widget& widget, double akslr, double v0, double s0): aksellerasjon_{akslr}, v0_{v0}, s0_{s0} {}
 		double next_distance(); //I en loop, vil denne gi neste Y-koordinat
 		void set_widget_xy(int);

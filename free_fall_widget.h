@@ -112,6 +112,25 @@ class  Free_fall_widget{
 													//ffgenerator = FFGenerator(widget, boundary_, wall_boundary_, scale_, 0, static_cast<double>(_startpoint.Y)) ;
 											}//Free_fall_widget(Free_fall_widget&& rhs)
 											
+			Free_fall_widget& operator=(const Free_fall_widget&& rhs) {
+				std::cout << "Free_fall_widget(Move Operator=)\n";
+				filename_ = rhs.filename_; 
+				renderer_ = rhs.renderer_;
+				boundary_ = rhs.boundary_; 
+				wall_boundary_=rhs.wall_boundary_;
+				scale_ = rhs.scale_;
+				_startpoint = rhs._startpoint;                                                                                                                    
+	            _width = rhs._width;
+	            _height = rhs._height;
+	            _deltaX = rhs._deltaX;
+	            loss_ = rhs.loss_;
+	            boost_ = rhs.boost_;
+	           widget = rhs.widget;
+	           ffgenerator = rhs.ffgenerator;
+				//init();
+				return *this;
+		}//Move operator=
+											
 		~Free_fall_widget() {
 			std::cout << "~Free_fall_widget()\n";
 			//delete widget;
