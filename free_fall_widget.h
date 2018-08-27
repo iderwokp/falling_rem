@@ -44,7 +44,7 @@ class  Free_fall_widget{
 		
 		double& loss() { return ffgenerator.loss();}
 		
-		void handle_side_crash(Free_fall_widget&, int);
+		//void handle_side_crash(Free_fall_widget&, int);
 		int& deltaX()  { return widget->deltaX();}
 		
 		void updateXY(int windows_width) {
@@ -87,7 +87,7 @@ class  Free_fall_widget{
             boost_ = rhs.boost_;
            
 			init();
-			
+			return *this;
 		}//operator=
 		
 			Free_fall_widget(Free_fall_widget&& rhs) noexcept :
