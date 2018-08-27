@@ -26,9 +26,7 @@ class Widget {
 	bool _rotating{false};
 	//Rect _rect;
 	std::string filename{};
-//	SDL_Renderer* renderer;
-//	SDL_Surface* surface;
-//    SDL_Texture* texture;
+
 	SDLSuTexWrap sutex;
     SDL_Rect _rect{0, 0, 0, 0};
 
@@ -49,7 +47,7 @@ class Widget {
 	        
 	    }
 
-	    SDL_Rect rect() {
+	    SDL_Rect rect() const {
 	        return SDL_Rect{_startpoint.X, _startpoint.Y, _width, _height};
 	    }
 	    
@@ -69,14 +67,14 @@ class Widget {
 	        //SDL_RenderCopy(renderer, texture, NULL, &_rect);	
             SDL_RenderCopyEx(sutex.renderer(), sutex.texture(), NULL, &_rect,_angle,nullptr,SDL_FLIP_NONE);	        
 	    }
-		~Widget() {
-		    std::cout << "~Widget()\n";
-		    //destroy();
-		}
+//		~Widget() {
+//		    std::cout << "~Widget()\n";
+//		    //destroy();
+//		}
 		int& angle()  {
 		    return _angle;
 		}
-		bool rotating() {
+		bool rotating() const {
 		    return _rotating;
 		}
 		void set_rotating(bool r) {
@@ -90,15 +88,15 @@ class Widget {
 		    _startpoint.X = x;
 		    _startpoint.Y = y;
 		}
-		int width() const {
-		    return _width;
-		}
+//		int width() const {
+//		    return _width;
+//		}
 		int& width()  {
 		    return _width;
 		}
-		int height() const {
-		    return _height;
-		}
+//		int height() const {
+//		    return _height;
+//		}
 		int& height()  {
 		    return _height;
 		}
