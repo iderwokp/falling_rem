@@ -25,8 +25,8 @@ int main(int argc, char** argv) {
 	
 	SDL_Event event;
 	bool quit{false};
-    const int windows_width {1100};
-    const int windows_height {700};
+    const int windows_width {900};
+    const int windows_height {400};
     SDL_Init(SDL_INIT_VIDEO);
     
     Sdl_wrap sdlwrap{std::string{"Falling"}, windows_width, windows_height};
