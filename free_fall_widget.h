@@ -103,12 +103,14 @@ class  Free_fall_widget{
                                             _deltaX{rhs._deltaX},
                                             loss_{rhs.loss_},
                                             boost_{rhs.boost_},
-                                            widget{std::move(rhs.widget)}
+                                            widget{rhs.widget}
                                             
                                                                                        
 											{
 													std::cout << "Free_fall_widget(Move)\n";
-													ffgenerator = std::move(rhs.ffgenerator); 
+													rhs.widget = nullptr;
+													ffgenerator = std::move(rhs.ffgenerator);
+													 
 													//rhs.widget
 													//ffgenerator = FFGenerator(widget, boundary_, wall_boundary_, scale_, 0, static_cast<double>(_startpoint.Y)) ;
 											}//Free_fall_widget(Free_fall_widget&& rhs)
@@ -127,14 +129,15 @@ class  Free_fall_widget{
 	            loss_ = rhs.loss_;
 	            boost_ = rhs.boost_;
 	           widget = rhs.widget;
-	           ffgenerator = rhs.ffgenerator;
+	           rhs.widget = nullptr;
+	           ffgenerator = std::move(rhs.ffgenerator);
 				//init();
 				return *this;
 		}//Move operator=
 											
 		~Free_fall_widget() {
 			std::cout << "~Free_fall_widget()\n";
-			//delete widget;
+			delete widget;
 		}
 		
 		
@@ -153,13 +156,14 @@ class  Free_fall_widget{
 		bool boost_{false};
 		double loss_{0};
 		int _deltaX{0};
-		//Widget* widget{};
-		std::unique_ptr<Widget> widget{};
+		Widget* widget{};
+		//std::unique_ptr<Widget> widget{};
 		FFGenerator ffgenerator;
 		
 		void init() {
 			std::cout << "init()\n";
-			widget = std::make_unique<Widget>(filename_, renderer_, _startpoint, _width, _height, _deltaX);
+		//	widget = std::make_unique<Widget>(filename_, renderer_, _startpoint, _width, _height, _deltaX);
+			widget = new Widget(filename_, renderer_, _startpoint, _width, _height, _deltaX);
 	    	 ffgenerator = FFGenerator(widget, boundary_, wall_boundary_, scale_, 0, static_cast<double>(_startpoint.Y)) ;
 		  	if(boost_) ffgenerator.boost() = true;
 		 	if(loss_ != 0.0) ffgenerator.loss() = loss_;
