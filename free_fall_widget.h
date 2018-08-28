@@ -113,7 +113,7 @@ class  Free_fall_widget{
 													//ffgenerator = FFGenerator(widget, boundary_, wall_boundary_, scale_, 0, static_cast<double>(_startpoint.Y)) ;
 											}//Free_fall_widget(Free_fall_widget&& rhs)
 											
-			Free_fall_widget& operator=(const Free_fall_widget&& rhs) {
+			Free_fall_widget& operator=(Free_fall_widget&& rhs) {
 				std::cout << "Free_fall_widget(Move Operator=)\n";
 				filename_ = rhs.filename_; 
 				renderer_ = rhs.renderer_;
