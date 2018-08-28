@@ -3,7 +3,6 @@
 #include <SDL.h>
 #include <iostream>
 #include <string>
-#include "SDLSuTex_wrap.h"
 
 
 struct Point {
@@ -26,14 +25,23 @@ class Widget {
 	bool _rotating{false};
 	//Rect _rect;
 	std::string filename{};
-
-	SDLSuTexWrap sutex;
+	SDL_Renderer* renderer;
+	SDL_Surface* surface;
+    SDL_Texture* texture;
     SDL_Rect _rect{0, 0, 0, 0};
-
+	void init() {
+	    //std::cout << "init()\n";
+	    surface = SDL_LoadBMP(filename.c_str());
+	    texture = SDL_CreateTextureFromSurface(renderer, surface);
+	}
+	void destroy() {
+        SDL_DestroyTexture(texture);
+        SDL_FreeSurface(surface);
+	}
 	public:
 	    Widget() { std::cout << "Widget()\n" ; }
 	    Widget(std::string fn, SDL_Renderer* rend, Point p={0, 0}, int w = 0, int h = 0, int dx = 0, int dy = 0, int a= 0 ): filename{fn}, 
-                                                                                                                    //renderer{rend},
+                                                                                                                    renderer{rend},
                                                                                                                     _startpoint{p},                                                                                                                    
                                                                                                                     _width{w},
                                                                                                                     _height{h},
@@ -42,12 +50,42 @@ class Widget {
                                                                                                                     _angle{a} {
 	        //std::cout << "Widget(................)\n";
 		std::cout << "Widget(....)\n"; // _startpoint = " << _startpoint.X << "," << _startpoint.Y << "\n";
-	        //init();
-	        sutex = SDLSuTexWrap(filename, rend);
+	        init();
 	        
 	    }
-
-	    SDL_Rect rect() const {
+	    Widget(const Widget& other) :filename{other.filename}, 
+                                renderer{other.renderer}, 
+                                _startpoint{other._startpoint},
+                                _height{other._height},
+                                _width{other._width},
+                                _rect{other._rect},
+                                _deltaX{other._deltaX},
+                                _deltaY{other._deltaY},
+                                _angle{other._angle} {
+           std::cout << "Widget(Widget&)\n";
+	        init();
+	    }
+	    Widget& operator=(const Widget& other) {//TODO: Sjekk denne. 
+	    	std::cout << "Widget operator=(Widget&)\n";
+	    	if(this==&other) return *this;
+            destroy();
+            filename = other.filename;
+            renderer = other.renderer;
+            _startpoint = other._startpoint;
+            _height = other._height;
+            _width = other._width;
+            _rect = other._rect;
+            _deltaX = other._deltaX;
+            _deltaY = other._deltaY;
+            _angle = other._angle;
+            init();
+            return *this;
+	    }
+//	    Widget(Widget&& other) { //move constructor
+//	    	
+//	    	
+//	    }
+	    SDL_Rect rect() {
 	        return SDL_Rect{_startpoint.X, _startpoint.Y, _width, _height};
 	    }
 	    
@@ -65,16 +103,16 @@ class Widget {
 	    void show() {
 	        //std::cout << "show()\n";
 	        //SDL_RenderCopy(renderer, texture, NULL, &_rect);	
-            SDL_RenderCopyEx(sutex.renderer(), sutex.texture(), NULL, &_rect,_angle,nullptr,SDL_FLIP_NONE);	        
+            SDL_RenderCopyEx(renderer, texture, NULL, &_rect,_angle,nullptr,SDL_FLIP_NONE);	        
 	    }
-//		~Widget() {
-//		    std::cout << "~Widget()\n";
-//		    //destroy();
-//		}
+		~Widget() {
+		    std::cout << "~Widget()\n";
+		    destroy();
+		}
 		int& angle()  {
 		    return _angle;
 		}
-		bool rotating() const {
+		bool rotating() {
 		    return _rotating;
 		}
 		void set_rotating(bool r) {
@@ -88,15 +126,15 @@ class Widget {
 		    _startpoint.X = x;
 		    _startpoint.Y = y;
 		}
-//		int width() const {
-//		    return _width;
-//		}
+		int width() const {
+		    return _width;
+		}
 		int& width()  {
 		    return _width;
 		}
-//		int height() const {
-//		    return _height;
-//		}
+		int height() const {
+		    return _height;
+		}
 		int& height()  {
 		    return _height;
 		}

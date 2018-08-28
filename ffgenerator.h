@@ -1,5 +1,5 @@
 
-//#include <widget.h>
+
 #ifndef FFGENERATOR_H
 #define FFGENERATOR_H
 #include <fstream>
@@ -19,13 +19,48 @@ class FFGenerator {// Frittfall Generator
 	
 	
 	public:
-		FFGenerator() {std::cout << "	FFGenerator() \n";} //= default;
+		FFGenerator() {std::cout << "FFGenerator() \n";} //= default;
 			//	FFGenerator(Widget& wid, int bound, int scale, double lo = 1,double akslr = g_, double v0 = 0, double s0 = 0): widget{wid}, loss_{lo}, aksellerasjon_{akslr}, boundary_{bound}, scale_{scale}, v0_{v0}, s0_{s0} {
 			//FFGenerator(Widget* wid, int bound, int wbound, int scale, double v0 = 0, double s0 = 0): widget{wid}, boundary_{bound}, wall_boundary{wbound}, scale_{scale},  s0_{s0} {velocity.v0_= v0;	}
 		FFGenerator(std::unique_ptr<Widget> wid, int bound, int wbound, int scale, double v0 = 0, double s0 = 0): widget{std::move(wid)}, boundary_{bound}, wall_boundary{wbound}, scale_{scale},  s0_{s0} {
 		velocity.v0_= v0; 
-		std::cout << "	FFGenerator(........) \n";
+		std::cout << "FFGenerator(........) \n";
 		}
+		FFGenerator( const FFGenerator& rhs):
+						loss_{rhs.loss_},
+						aksellerasjon_{rhs.aksellerasjon_},
+						boundary_{rhs.boundary_},
+						wall_boundary{rhs.wall_boundary},
+						scale_{rhs.scale_},
+						velocity{rhs.velocity},
+						s0_{rhs.s0_},
+						tid_{rhs.tid_},
+						boost_{rhs.boost_},
+						startY{rhs.startY},
+						nedover{rhs.nedover},
+						widget{std::move(rhs.widget)}
+		{
+			std::cout << "FFGenerator(const FFGenerator& rhs) \n";
+		}
+		FFGenerator& operator=(const FFGenerator& rhs) {
+			std::cout << "FFGenerator& oerator=(const FFGenerator& rhs) \n";
+				loss_ = rhs.loss_;
+				aksellerasjon_ = rhs.aksellerasjon_;
+				boundary_ = rhs.boundary_;
+				wall_boundary = rhs.wall_boundary;
+				scale_ = rhs.scale_;
+				velocity = rhs.velocity;
+				s0_ = rhs.s0_;
+				tid_ = rhs.tid_;
+				boost_ = rhs.boost_;
+				startY = rhs.startY;
+				nedover = rhs.nedover;
+				widget = std::move(rhs.widget);
+			
+		}
+		
+		
+		~FFGenerator() { std::cout << "~FFGenerator(destruct) \n";}
 		//FFGenerator(Widget& widget, double akslr, double v0, double s0): aksellerasjon_{akslr}, v0_{v0}, s0_{s0} {}
 		double next_distance(); //I en loop, vil denne gi neste Y-koordinat
 		void set_widget_xy(int);
@@ -33,12 +68,12 @@ class FFGenerator {// Frittfall Generator
 		double& loss() { return loss_;}
 		void set_starthd(double y) { s0_ = y;}
 	private:
-		std::ofstream of {"dbg.txt"};
+		//std::ofstream of {"dbg.txt"};
 		double retning_nedover();
 		double retning_oppover();
 		
 		static constexpr double g_ = 9.81;
-		std::unique_ptr<Widget> widget;
+		
 		double loss_{};
 		double aksellerasjon_{g_};
 		int boundary_{};
@@ -54,6 +89,7 @@ class FFGenerator {// Frittfall Generator
 		bool boost_{false};
 		double startY{0};
 		bool nedover{true};
+		std::unique_ptr<Widget> widget;
 		
 	
 	

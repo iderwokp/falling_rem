@@ -4,8 +4,8 @@ Name=Falling
 Type=1
 Ver=2
 ObjFiles=
-Includes=I:\rusk_rask\d\Dev-Cpp11_17\SDL2-2.0.8\x86_64-w64-mingw32\include\SDL2
-Libs=I:\rusk_rask\d\Dev-Cpp11_17\SDL2-2.0.8\x86_64-w64-mingw32\lib
+Includes=I:\rusk_rask\d\Dev-Cpp11_17\SDL2-2.0.8\x86_64-w64-mingw32\include\SDL2;C:\Users\Paul\Dropbox\cplusplus\SDL2-2.0.8\x86_64-w64-mingw32\include\SDL2
+Libs=I:\rusk_rask\d\Dev-Cpp11_17\SDL2-2.0.8\x86_64-w64-mingw32\lib;C:\Users\Paul\Dropbox\cplusplus\SDL2-2.0.8\x86_64-w64-mingw32\lib
 PrivateResource=
 ResourceIncludes=
 MakeIncludes=
@@ -29,7 +29,7 @@ IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
 CompilerSettings=0000000000000000100000000
-UnitCount=6
+UnitCount=7
 
 [VersionInfo]
 Major=1
@@ -102,6 +102,16 @@ BuildCmd=
 
 [Unit6]
 FileName=widget.h
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit7]
+FileName=SDLSuTex_wrap.h
 CompileCpp=1
 Folder=
 Compile=1
