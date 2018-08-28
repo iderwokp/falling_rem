@@ -47,12 +47,10 @@ class FFGenerator {// Frittfall Generator
 		int wall_boundary{};
 		int scale_{};
 		Velocity velocity{0, 0, 0, 0};
-		//double v0_{0}; //Startfart
-//		double va_{0};
-//		double vtot_{0};
+	
 		double s0_{0};
 		int tid_{0};
-		//double vmax{0};
+	
 		bool boost_{false};
 		double startY{0};
 		bool nedover{true};

@@ -108,7 +108,7 @@ class  Free_fall_widget{
                                                                                        
 											{
 													std::cout << "Free_fall_widget(Move)\n";
-													ffgenerator = std::move(rhs.ffgenerator); 
+													ffgenerator=std::move(rhs.ffgenerator); 
 													//rhs.widget
 													//ffgenerator = FFGenerator(widget, boundary_, wall_boundary_, scale_, 0, static_cast<double>(_startpoint.Y)) ;
 											}//Free_fall_widget(Free_fall_widget&& rhs)
