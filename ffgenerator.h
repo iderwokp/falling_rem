@@ -22,10 +22,12 @@ class FFGenerator {// Frittfall Generator
 		FFGenerator() {std::cout << "FFGenerator() \n";} //= default;
 			//	FFGenerator(Widget& wid, int bound, int scale, double lo = 1,double akslr = g_, double v0 = 0, double s0 = 0): widget{wid}, loss_{lo}, aksellerasjon_{akslr}, boundary_{bound}, scale_{scale}, v0_{v0}, s0_{s0} {
 			//FFGenerator(Widget* wid, int bound, int wbound, int scale, double v0 = 0, double s0 = 0): widget{wid}, boundary_{bound}, wall_boundary{wbound}, scale_{scale},  s0_{s0} {velocity.v0_= v0;	}
-		FFGenerator(std::shared_ptr<Widget> wid, int bound, int wbound, int scale, double v0 = 0, double s0 = 0): widget{wid}, boundary_{bound}, wall_boundary{wbound}, scale_{scale},  s0_{s0} {
+		FFGenerator(std::shared_ptr<Widget> wid, int bound, int wbound, int scale, double v0 = 0, double s0 = 0): 
+												widget{wid}, boundary_{bound}, wall_boundary{wbound}, scale_{scale},  s0_{s0} {
 		velocity.v0_= v0; 
 		std::cout << "FFGenerator(........) \n";
 		}
+		~FFGenerator() {std::cout << "~FFGenerator(destructor) \n";}
 		//FFGenerator(Widget& widget, double akslr, double v0, double s0): aksellerasjon_{akslr}, v0_{v0}, s0_{s0} {}
 		double next_distance(); //I en loop, vil denne gi neste Y-koordinat
 		void set_widget_xy(int);

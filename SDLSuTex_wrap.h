@@ -1,5 +1,6 @@
 #ifndef SDLSUTEX_WRAP_H
 #define SDLSUTEX_WRAP_H
+#include <iostream>
 #include <string>
 #include <SDL.h>
 
@@ -18,8 +19,8 @@ class  SDLSuTexWrap {
 		}
 		
 		void destroy() {
-      	  SDL_DestroyTexture(texture_);
-      	  SDL_FreeSurface(surface_);
+      	  if(texture_) SDL_DestroyTexture(texture_);
+      	  if(surface_) SDL_FreeSurface(surface_);
 		}
 		
     public:
@@ -28,9 +29,11 @@ class  SDLSuTexWrap {
 			init();
 		}
 		SDLSuTexWrap(const SDLSuTexWrap& rhs) : filename{rhs.filename}, renderer_{rhs.renderer_} {
+			std::cout << "SDLSuTexWrap(const SDLSuTexWrap& rhs)\n";
 			init();
 		}
 		SDLSuTexWrap& operator=(const SDLSuTexWrap& rhs) {
+			std::cout << "SDLSuTexWrap& operator=(const SDLSuTexWrap& rhs)\n";
 			filename = rhs.filename;
 			renderer_= rhs.renderer_;
 			destroy(); //slette gamle texture og surface
@@ -38,12 +41,14 @@ class  SDLSuTexWrap {
 			return *this;
 		}
 		SDLSuTexWrap(SDLSuTexWrap&& rhs) noexcept: filename{rhs.filename}, renderer_{rhs.renderer_}, surface_{rhs.surface_}, texture_{rhs.texture_}  {
+			std::cout << "SDLSuTexWrap(SDLSuTexWrap&& rhs)\n";
 			rhs.surface_ = nullptr;
 			rhs.texture_ = nullptr;
 			rhs.renderer_ = nullptr;
 			rhs.filename = "";
 		}
 		SDLSuTexWrap& operator=(SDLSuTexWrap&& rhs) noexcept {
+			std::cout << "SDLSuTexWrap& operator=(SDLSuTexWrap&& rhs)\n";
 			destroy(); //slette gamle texture og surface
 			filename = rhs.filename; 
 			renderer_ = rhs.renderer_; 
