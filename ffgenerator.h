@@ -24,8 +24,9 @@ class FFGenerator {// Frittfall Generator
 		FFGenerator(Widget* wid, int bound, int wbound, int scale, double v0 = 0, double s0 = 0): widget{wid}, boundary_{bound}, wall_boundary{wbound}, scale_{scale},  s0_{s0}// {velocity.v0_= v0;	}
 		//FFGenerator(std::unique_ptr<Widget> wid, int bound, int wbound, int scale, double v0 = 0, double s0 = 0): widget{std::move(wid)}, boundary_{bound}, wall_boundary{wbound}, scale_{scale},  s0_{s0} {
 		{
-		velocity.v0_= v0; 
-		std::cout << "FFGenerator(........) \n";
+			if(!widget) std::cout << "FFGenerator::FFGenerator(): widget == nullptr\n";
+			velocity.v0_= v0; 
+			std::cout << "FFGenerator(........) \n";
 		}
 		FFGenerator( const FFGenerator& rhs):
 						loss_{rhs.loss_},
@@ -41,7 +42,9 @@ class FFGenerator {// Frittfall Generator
 						nedover{rhs.nedover},
 					//	widget{std::move(rhs.widget)}
 						widget{rhs.widget}
+					
 		{
+			if(!widget) std::cout << "widget i FFGenerator(FFGenerator& rhs) == nullptr\n";
 			std::cout << "FFGenerator(const FFGenerator& rhs) \n";
 		}
 		FFGenerator& operator=(const FFGenerator& rhs) {
@@ -60,6 +63,7 @@ class FFGenerator {// Frittfall Generator
 				//widget = std::move(rhs.widget);
 				delete widget;
 				widget = rhs.widget;
+				if(!widget) std::cout << "widget i FFGenerator& operator=(const FFGenerator& rhs) == nullptr\n";
 			
 		}
 		FFGenerator(FFGenerator&& rhs):
@@ -80,6 +84,7 @@ class FFGenerator {// Frittfall Generator
 						
 		{
 			std::cout << "FFGenerator(FFGenerator&& rhs) \n";
+			if(!widget) std::cout << "widget i FFGenerator(FFGenerator&& rhs) == nullptr\n";
 			rhs.widget = nullptr;
 		}
 		FFGenerator& operator=(FFGenerator&& rhs) {
@@ -98,6 +103,7 @@ class FFGenerator {// Frittfall Generator
 				//widget = std::move(rhs.widget);
 				delete widget;
 				widget = rhs.widget;
+					if(!widget) std::cout << "widget i FFGenerator& operator=(const FFGenerator&& rhs) == nullptr\n";
 				rhs.widget = nullptr;
 			
 		}
@@ -141,11 +147,13 @@ class FFGenerator {// Frittfall Generator
 };
 
 void FFGenerator::set_widget_xy(int x) {
+	
 	Vc_conv vc(Grav_heading::down, wall_boundary, boundary_);
 	
 	double y = next_distance();
 	auto [xx, yy] = vc.convert_from_virtual(x, y);
 	//std::cout << "x = " << x << "   y = " << y << "\n";
+	if(widget==nullptr) std::cout << "widget == nullptr!!!\n";
 	widget->moveTo(xx,yy);
 	
 }

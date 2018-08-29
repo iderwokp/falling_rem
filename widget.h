@@ -114,6 +114,7 @@ class Widget {
 		}
 		void moveTo(int x, int y) {
 		    startpoint(x, y);
+		    
 		    make();
 		    show();
 			//std::cout << "y = " << y << "\n";

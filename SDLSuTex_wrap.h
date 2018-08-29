@@ -30,6 +30,7 @@ class  SDLSuTexWrap {
 			init();
 		}
 		SDLSuTexWrap(const SDLSuTexWrap& rhs) : filename{rhs.filename}, renderer_{rhs.renderer_} {
+			std::cout << "SDLSuTexWrap(const SDLSuTexWrap& rhs)\n";
 			init();
 		}
 		SDLSuTexWrap& operator=(const SDLSuTexWrap& rhs) {
@@ -41,6 +42,7 @@ class  SDLSuTexWrap {
 			return *this;
 		}
 		SDLSuTexWrap(SDLSuTexWrap&& rhs) noexcept: filename{rhs.filename}, renderer_{rhs.renderer_}, surface_{rhs.surface_}, texture_{rhs.texture_}  {
+			std::cout << "SDLSuTexWrap(const SDLSuTexWrap& rhs)\n";
 			rhs.surface_ = nullptr;
 			rhs.texture_ = nullptr;
 			rhs.renderer_ = nullptr;
