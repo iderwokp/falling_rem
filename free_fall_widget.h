@@ -12,6 +12,7 @@ class  Free_fall_widget{
 	public:
 		Free_fall_widget() {
 			std::cout << "Free_fall_widget()\n";
+			init();
 
 		}
 		Free_fall_widget(const std::string& fn, SDL_Renderer* rend, int bound, int wall_bound, int scale, Point p={0, 0}, int w = 0, int h = 0, int dx = 0, double ls = 0.0, bool bst = false): 
@@ -154,12 +155,12 @@ class  Free_fall_widget{
 		double loss_{0};
 		int _deltaX{0};
 		//Widget* widget{};
-		std::unique_ptr<Widget> widget{};
+		std::shared_ptr<Widget> widget{};
 		FFGenerator ffgenerator;
 		
 		void init() {
 			std::cout << "init()\n";
-			widget = std::make_unique<Widget>(filename_, renderer_, _startpoint, _width, _height, _deltaX);
+			widget = std::make_shared<Widget>(filename_, renderer_, _startpoint, _width, _height, _deltaX);
 	    	 ffgenerator = FFGenerator(widget, boundary_, wall_boundary_, scale_, 0, static_cast<double>(_startpoint.Y)) ;
 		  	if(boost_) ffgenerator.boost() = true;
 		 	if(loss_ != 0.0) ffgenerator.loss() = loss_;
