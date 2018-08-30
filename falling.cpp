@@ -8,12 +8,7 @@
 #include "free_fall_widget.h"
 #include "aconverter.h"
 
-static SDL_Point points[4] = {
-    {320, 200},
-    {300, 240},
-    {340, 240},
-    {320, 200}
-};
+
 void EventHandler(SDL_Event event, bool& quit, int ww, int wh) {
     SDL_PollEvent(&event);
     if(event.type == SDL_QUIT){
@@ -31,7 +26,7 @@ int main(int argc, char** argv) {
 	
 	SDL_Event event;
 	bool quit{false};
-    const int windows_width {700};
+    const int windows_width {1300};
     const int windows_height {700};
     SDL_Init(SDL_INIT_VIDEO);
     
@@ -50,13 +45,13 @@ int main(int argc, char** argv) {
 //    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{1000,0}, 30, 20, -1, 0.9, true});
 //    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{150,200}, 30, 20, 1, 0.9, true});
 //    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{800,100}, 30, 20, -1, 0.9, true});
-    Aconverter ac{75, 8.2};
+    Aconverter ac{75, 10.0f};
     float aks{9.81f};
-    Free_fall_widget ffw{"ball.bmp", renderer, windows_height, windows_width, 200, Point{0,windows_height-30}, 30, 20, ac.x_velocity(), -ac.y_velocity(), 0.9, true};
+    Free_fall_widget ffw{"ball.bmp", renderer, windows_height, windows_width, 200, Point{0,windows_height-26}, 30, 20, ac.x_velocity(), -ac.y_velocity(), 0.9, true};
     ffw.set_aksellerasjon(aks); 
-    int index{500};
+    int index{600};
     Free_fall_widget ffw_copy {ffw};
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+    //SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
    // SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
 	while(!quit) {
 	//while(index--) {
@@ -66,19 +61,19 @@ int main(int argc, char** argv) {
 //        	ff.updateXY(windows_width);
 //        }
         
-		--index;
-		if(index == 0) {
-			ffw = ffw_copy;
-			index = 500;	
-			ffw.set_aksellerasjon(aks); 
-		}
+//		--index;
+//		if(index == 0) {
+//			ffw = ffw_copy;
+//			index = 600;	
+//			ffw.set_aksellerasjon(aks); 
+//		}
 		
 		//SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
 		//
 	//	SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
-	//	SDL_RenderClear(renderer); 
-		SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
-		SDL_RenderDrawLine(renderer, 0,windows_height, windows_width,0);
+		SDL_RenderClear(renderer); 
+//		SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
+//		SDL_RenderDrawLine(renderer, 0,windows_height, windows_width,0);
 		ffw.updateXY(windows_width);
 	    SDL_RenderPresent(renderer);
 	    

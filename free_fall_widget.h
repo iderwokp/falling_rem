@@ -54,7 +54,7 @@ class  Free_fall_widget{
 		
 		void updateXY(int windows_width) {
 			setXY(xPos);
-			//handle_side_crash(windows_width);
+			handle_side_crash(windows_width);
 			xPos += widget->deltaX();						
 		}
 		Free_fall_widget(const Free_fall_widget& rhs):
