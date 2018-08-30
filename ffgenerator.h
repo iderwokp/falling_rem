@@ -67,7 +67,7 @@ class FFGenerator {// Frittfall Generator
 		bool& boost() {return boost_;}
 		double& loss() { return loss_;}
 		void set_starthd(double y) { s0_ = y;}
-		void set_aks(float);
+		void set_aksellerasjon(float);
 	private:
 		//std::ofstream of {"dbg.txt"};
 		double retning_nedover();
@@ -96,7 +96,7 @@ class FFGenerator {// Frittfall Generator
 	
 };
 
-void FFGenerator::set_aks(float x) {
+void FFGenerator::set_aksellerasjon(float x) {
 	aksellerasjon_ = x;
 	
 }
