@@ -12,9 +12,10 @@ class  Free_fall_widget{
 	public:
 		Free_fall_widget() {
 			std::cout << "Free_fall_widget()\n";
+			init();
 
 		}
-		Free_fall_widget(const std::string& fn, SDL_Renderer* rend, int bound, int wall_bound, int scale, Point p={0, 0}, int w = 0, int h = 0, int dx = 0, double ls = 0.0, bool bst = false): 
+		Free_fall_widget(const std::string& fn, SDL_Renderer* rend, int bound, int wall_bound, int scale, Point p={0, 0}, int w = 0, int h = 0, float dx = 0, float dy = 0, double ls = 0.0, bool bst = false): 
 											filename_{fn}, 
 											renderer_{rend}, 
 											boundary_{bound}, 
@@ -24,6 +25,7 @@ class  Free_fall_widget{
                                             _width{w},
                                             _height{h},
                                             _deltaX{dx},
+                                            _deltaY{dy},
                                             loss_{ls},
                                             boost_{bst}
                                            
@@ -45,7 +47,7 @@ class  Free_fall_widget{
 		double& loss() { return ffgenerator.loss();}
 		
 		//void handle_side_crash(Free_fall_widget&, int);
-		int& deltaX()  { return widget->deltaX();}
+		float& deltaX()  { return widget->deltaX();}
 		
 		void updateXY(int windows_width) {
 			setXY(xPos);
@@ -63,6 +65,7 @@ class  Free_fall_widget{
                                             _width{rhs._width},
                                             _height{rhs._height},
                                             _deltaX{rhs._deltaX},
+                                             _deltaY{rhs._deltaY},
                                             loss_{rhs.loss_},
                                             boost_{rhs.boost_}
                                            
@@ -83,6 +86,7 @@ class  Free_fall_widget{
             _width = rhs._width;
             _height = rhs._height;
             _deltaX = rhs._deltaX;
+            _deltaY = rhs._deltaY;
             loss_ = rhs.loss_;
             boost_ = rhs.boost_;
            
@@ -101,6 +105,7 @@ class  Free_fall_widget{
                                             _width{rhs._width},
                                             _height{rhs._height},
                                             _deltaX{rhs._deltaX},
+                                            _deltaY{rhs._deltaY},
                                             loss_{rhs.loss_},
                                             boost_{rhs.boost_},
                                             widget{std::move(rhs.widget)}
@@ -113,7 +118,7 @@ class  Free_fall_widget{
 													//ffgenerator = FFGenerator(widget, boundary_, wall_boundary_, scale_, 0, static_cast<double>(_startpoint.Y)) ;
 											}//Free_fall_widget(Free_fall_widget&& rhs)
 											
-			Free_fall_widget& operator=(const Free_fall_widget&& rhs) {
+			Free_fall_widget& operator=(Free_fall_widget&& rhs) {
 				std::cout << "Free_fall_widget(Move Operator=)\n";
 				filename_ = rhs.filename_; 
 				renderer_ = rhs.renderer_;
@@ -124,6 +129,7 @@ class  Free_fall_widget{
 	            _width = rhs._width;
 	            _height = rhs._height;
 	            _deltaX = rhs._deltaX;
+	            _deltaY = rhs._deltaY;
 	            loss_ = rhs.loss_;
 	            boost_ = rhs.boost_;
 	           widget = rhs.widget;
@@ -152,15 +158,16 @@ class  Free_fall_widget{
 		int _width{0};
 		bool boost_{false};
 		double loss_{0};
-		int _deltaX{0};
+		float _deltaX{0};
+		float _deltaY{0};
 		//Widget* widget{};
-		std::unique_ptr<Widget> widget{};
+		std::shared_ptr<Widget> widget{};
 		FFGenerator ffgenerator;
 		
 		void init() {
 			std::cout << "init()\n";
-			widget = std::make_unique<Widget>(filename_, renderer_, _startpoint, _width, _height, _deltaX);
-	    	 ffgenerator = FFGenerator(widget, boundary_, wall_boundary_, scale_, 0, static_cast<double>(_startpoint.Y)) ;
+			widget = std::make_shared<Widget>(filename_, renderer_, _startpoint, _width, _height, _deltaX);
+	    	 ffgenerator = FFGenerator(widget, boundary_, wall_boundary_, scale_, _deltaY, static_cast<double>(_startpoint.Y)) ;
 		  	if(boost_) ffgenerator.boost() = true;
 		 	if(loss_ != 0.0) ffgenerator.loss() = loss_;
 		 	xPos = _startpoint.X;
