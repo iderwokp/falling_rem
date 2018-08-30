@@ -75,7 +75,7 @@ class FFGenerator {// Frittfall Generator
 		static constexpr double g_ = 9.81;
 		
 		double loss_{};
-		double aksellerasjon_{g_};
+		double aksellerasjon_{0.0};
 		int boundary_{};
 		int wall_boundary{};
 		int scale_{};
