@@ -11,7 +11,7 @@ class  Free_fall_widget{
 	
 	public:
 		Free_fall_widget() {
-			std::cout << "Free_fall_widget()\n";
+			//std::cout << "Free_fall_widget()\n";
 			init();
 
 		}
@@ -30,10 +30,13 @@ class  Free_fall_widget{
                                             boost_{bst}
                                            
 											 { 
-											 	std::cout << "Free_fall_widget(.....) Constr\n ";// << _startpoint.X << "," << _startpoint.Y << "\n";
+											 	//std::cout << "Free_fall_widget(.....) Constr\n ";// << _startpoint.X << "," << _startpoint.Y << "\n";
 											 	init();										 	
 											 
 											 }
+		void set_aks(float a) {
+			ffgenerator.set_aks(a);
+		}
 		bool& boost()  {
 			return ffgenerator.boost();
 		}
@@ -51,7 +54,7 @@ class  Free_fall_widget{
 		
 		void updateXY(int windows_width) {
 			setXY(xPos);
-			handle_side_crash(windows_width);
+			//handle_side_crash(windows_width);
 			xPos += widget->deltaX();						
 		}
 		Free_fall_widget(const Free_fall_widget& rhs):
@@ -70,7 +73,7 @@ class  Free_fall_widget{
                                             boost_{rhs.boost_}
                                            
 											{
-													std::cout << "Free_fall_widget(Copy)\n";
+												//	std::cout << "Free_fall_widget(Copy)\n";
 												
 												init();
 											}//Free_fall_widget(const Free_fall_widget& rhs)
@@ -112,14 +115,14 @@ class  Free_fall_widget{
                                             
                                                                                        
 											{
-													std::cout << "Free_fall_widget(Move)\n";
+													//std::cout << "Free_fall_widget(Move)\n";
 													ffgenerator = std::move(rhs.ffgenerator); 
 													//rhs.widget
 													//ffgenerator = FFGenerator(widget, boundary_, wall_boundary_, scale_, 0, static_cast<double>(_startpoint.Y)) ;
 											}//Free_fall_widget(Free_fall_widget&& rhs)
 											
 			Free_fall_widget& operator=(Free_fall_widget&& rhs) {
-				std::cout << "Free_fall_widget(Move Operator=)\n";
+			//	std::cout << "Free_fall_widget(Move Operator=)\n";
 				filename_ = rhs.filename_; 
 				renderer_ = rhs.renderer_;
 				boundary_ = rhs.boundary_; 
@@ -139,11 +142,14 @@ class  Free_fall_widget{
 		}//Move operator=
 											
 		~Free_fall_widget() {
-			std::cout << "~Free_fall_widget()\n";
+		//	std::cout << "~Free_fall_widget()\n";
 			//delete widget;
 		}
 		
-		
+		void reset() {
+			widget = widget_copy;
+			ffgenerator = ffgenerator_copy;
+		}
 	private:
 		
 		std::string filename_{};
@@ -163,14 +169,19 @@ class  Free_fall_widget{
 		//Widget* widget{};
 		std::shared_ptr<Widget> widget{};
 		FFGenerator ffgenerator;
+		std::shared_ptr<Widget> widget_copy{};
+		FFGenerator ffgenerator_copy;
 		
 		void init() {
-			std::cout << "init()\n";
+			//std::cout << "init()\n";
 			widget = std::make_shared<Widget>(filename_, renderer_, _startpoint, _width, _height, _deltaX);
 	    	 ffgenerator = FFGenerator(widget, boundary_, wall_boundary_, scale_, _deltaY, static_cast<double>(_startpoint.Y)) ;
 		  	if(boost_) ffgenerator.boost() = true;
 		 	if(loss_ != 0.0) ffgenerator.loss() = loss_;
 		 	xPos = _startpoint.X;
+		 	
+		 	widget_copy = widget;
+		 	ffgenerator_copy= ffgenerator;
 			
 		}
 		

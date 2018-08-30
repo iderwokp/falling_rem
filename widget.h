@@ -31,7 +31,7 @@ class Widget {
     SDL_Rect _rect{0, 0, 0, 0};
 
 	public:
-	    Widget() { std::cout << "Widget()\n" ; }
+	   // Widget() { std::cout << "Widget()\n" ; }
 	    Widget(std::string fn, SDL_Renderer* rend, Point p={0, 0}, int w = 0, int h = 0, float dx = 0, int dy = 0, int a= 0 ): filename{fn}, 
                                                                                                                     //renderer{rend},
                                                                                                                     _startpoint{p},                                                                                                                    
@@ -41,7 +41,7 @@ class Widget {
                                                                                                                     _deltaY{dy},
                                                                                                                     _angle{a} {
 	        //std::cout << "Widget(................)\n";
-		std::cout << "Widget(....)\n"; // _startpoint = " << _startpoint.X << "," << _startpoint.Y << "\n";
+	//	std::cout << "Widget(....)\n"; // _startpoint = " << _startpoint.X << "," << _startpoint.Y << "\n";
 	        //init();
 	        sutex = SDLSuTexWrap(filename, rend);
 	        
