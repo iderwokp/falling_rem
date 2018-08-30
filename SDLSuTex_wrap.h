@@ -24,16 +24,16 @@ class  SDLSuTexWrap {
 		}
 		
     public:
-    	SDLSuTexWrap() {std::cout << "SDLSuTexWrap()\n";}//= default;
+    	SDLSuTexWrap() {/*std::cout << "SDLSuTexWrap()\n";*/}//= default;
     	SDLSuTexWrap(std::string fn, SDL_Renderer* r) : filename{fn}, renderer_{r} {
-    		std::cout << "SDLSuTexWrap(-----)\n";
+    		//std::cout << "SDLSuTexWrap(-----)\n";
 			init();
 		}
 		SDLSuTexWrap(const SDLSuTexWrap& rhs) : filename{rhs.filename}, renderer_{rhs.renderer_} {
 			init();
 		}
 		SDLSuTexWrap& operator=(const SDLSuTexWrap& rhs) {
-			std::cout << "SDLSuTexWrap& operator=(&)\n";
+		//	std::cout << "SDLSuTexWrap& operator=(&)\n";
 			filename = rhs.filename;
 			renderer_= rhs.renderer_;
 			destroy(); //slette gamle texture og surface
@@ -47,7 +47,7 @@ class  SDLSuTexWrap {
 			rhs.filename = "";
 		}
 		SDLSuTexWrap& operator=(SDLSuTexWrap&& rhs) noexcept {
-			std::cout << "SDLSuTexWrap& operator=(&&)\n";
+			//std::cout << "SDLSuTexWrap& operator=(&&)\n";
 			destroy(); //slette gamle texture og surface
 			filename = rhs.filename; 
 			renderer_ = rhs.renderer_; 
@@ -72,7 +72,7 @@ class  SDLSuTexWrap {
 		
 		
     	~SDLSuTexWrap() {
-    		std::cout << "~SDLSuTexWrap()\n";
+    	//	std::cout << "~SDLSuTexWrap()\n";
     		destroy();
     	}
 	

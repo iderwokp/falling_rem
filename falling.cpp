@@ -25,8 +25,8 @@ int main(int argc, char** argv) {
 	
 	SDL_Event event;
 	bool quit{false};
-    const int windows_width {900};
-    const int windows_height {400};
+    const int windows_width {800};
+    const int windows_height {800};
     SDL_Init(SDL_INIT_VIDEO);
     
     Sdl_wrap sdlwrap{std::string{"Falling"}, windows_width, windows_height};
@@ -34,8 +34,9 @@ int main(int argc, char** argv) {
     SDL_Renderer* renderer = sdlwrap.renderer();
     
     std::vector<Free_fall_widget> ffws(2);
+    SDL_Delay(500);   
    
-    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{300,300}, 30, 20, 1.0, -100.0, 0.9, true});
+ //   ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{300,300}, 30, 20, 1.0, -100.0, 0.9, true});
 //    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{1200,0}, 30, 20, -1, 0.9, true});
 //    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{100,300}, 30, 20, 1, 0.9, true});
 //    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{900,500}, 30, 20, -1, 0.9, true});
@@ -44,18 +45,31 @@ int main(int argc, char** argv) {
 //    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{150,200}, 30, 20, 1, 0.9, true});
 //    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{800,100}, 30, 20, -1, 0.9, true});
    
-    
-//	int index{400};
+    Free_fall_widget ffw{"ball.bmp", renderer, windows_height, windows_width, 200, Point{0,windows_height-30}, 30, 20, 10.0, -2000.0, 0.9, true};
+    ffw.set_aks(0.0f); 
+    int index{400};
+    Free_fall_widget ffw_copy {ffw};
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+   // SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
 	while(!quit) {
 	//while(index--) {
+	
         EventHandler(event, quit, windows_width, windows_height);
-        for(auto& ff: ffws) {
-        	ff.updateXY(windows_width);
-        }
-        
-
+//        for(auto& ff: ffws) {
+//        	ff.updateXY(windows_width);
+//        }
+        ffw.updateXY(windows_width);
+		--index;
+		if(index == 0) {
+			ffw = ffw_copy;
+			index = 400;	
+			ffw.set_aks(0.0f); 
+		}
+		
+		//SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
+		SDL_RenderDrawLine(renderer, 0,windows_height, windows_width,0);
 	    SDL_RenderPresent(renderer);
-        SDL_RenderClear(renderer);     
+        SDL_RenderClear(renderer); 
 		
 		SDL_Delay(5);   
     }
