@@ -45,9 +45,9 @@ int main(int argc, char** argv) {
 //    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{1000,0}, 30, 20, -1, 0.9, true});
 //    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{150,200}, 30, 20, 1, 0.9, true});
 //    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{800,100}, 30, 20, -1, 0.9, true});
-    Aconverter ac{75, 10.0f};
+    Aconverter ac{50, 15.0f};
     float aks{9.81f};
-    Free_fall_widget ffw{"ball.bmp", renderer, windows_height, windows_width, 200, Point{0,windows_height-26}, 30, 20, ac.x_velocity(), -ac.y_velocity(), 0.9, true};
+    Free_fall_widget ffw{"ball.bmp", renderer, windows_height, windows_width, 200, Point{0,windows_height-26}, 30, 20, ac.x_velocity(), -ac.y_velocity(), 0.8, true};
     ffw.set_aksellerasjon(aks); 
     int index{600};
     Free_fall_widget ffw_copy {ffw};

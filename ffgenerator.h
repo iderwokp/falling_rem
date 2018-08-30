@@ -135,6 +135,13 @@ double FFGenerator::retning_nedover() {
 		tid_ = 0;
 		s0_ = s/scale_;
 	}
+	if(s <= 0 ) {
+		//of << "\n";
+		s=0;
+		velocity.v0_ = -velocity.v0_ *loss_;
+		tid_= 0;
+		s0_ = s/scale_;
+	}
 	//std::cout << "s = " << s << "\n";
 	++tid_;
 	//of << "retning_nedover(): " << "s/scale_=" << s/scale_ << "\t  s=" << s << "\t\ts0_=" << s0_ << "\t\tnedover=" << nedover << "\t\tvtot_=" << vtot_ << "\ttid_=" << tid_ << "\t\tv0_=" << v0_ << "\t\tva_=" << va_ << "\n";
@@ -153,6 +160,14 @@ double FFGenerator::retning_oppover() {
 		//of << "\n";
 		nedover = true;
 		velocity.v0_ = 0;
+		tid_= 0;
+		s0_ = s/scale_;
+	}
+	if(s <= 0 ) {
+		//of << "\n";
+		s=0;
+		nedover = true;
+		velocity.v0_ = -velocity.v0_ *loss_;
 		tid_= 0;
 		s0_ = s/scale_;
 	}
