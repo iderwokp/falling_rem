@@ -101,11 +101,12 @@ void FFGenerator::set_aksellerasjon(float x) {
 	
 }
 void FFGenerator::set_widget_xy(int x) {
+	//std::cout << "x = " << x << "\n";
 	Vc_conv vc(Grav_heading::down, wall_boundary, boundary_);
 	
 	double y = next_distance();
 	auto [xx, yy] = vc.convert_from_virtual(x, y);
-	//std::cout << "x = " << x << "   y = " << y << "\n";
+	//std::cout << "xx = " << xx << "   yy = " << yy << "\n";
 	widget->moveTo(xx,yy);
 	
 }
