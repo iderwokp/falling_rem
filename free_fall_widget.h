@@ -30,7 +30,7 @@ class  Free_fall_widget{
                                             boost_{bst}
                                            
 											 { 
-											 	//std::cout << "Free_fall_widget(.....) Constr\n ";// << _startpoint.X << "," << _startpoint.Y << "\n";
+											 	
 											 	init();										 	
 											 
 											 }
@@ -41,6 +41,7 @@ class  Free_fall_widget{
 			return ffgenerator.boost();
 		}
 		void setXY(int x) {
+			
 			return ffgenerator.set_widget_xy(x);
 		}
 		void setDeltaX(int dx) {
@@ -53,6 +54,7 @@ class  Free_fall_widget{
 		float& deltaX()  { return widget->deltaX();}
 		
 		void updateXY(int windows_width) {
+			//std::cout << "xPos = " << xPos << "\n";
 			setXY(xPos);
 			handle_side_crash(windows_width);
 			xPos += widget->deltaX();						
@@ -94,6 +96,7 @@ class  Free_fall_widget{
             boost_ = rhs.boost_;
            
 			init();
+			std::cout << "Free_fall_widget(.....) operator=\n " << _startpoint.X << "," << _startpoint.Y << "\n";
 			return *this;
 		}//operator=
 		
@@ -111,12 +114,14 @@ class  Free_fall_widget{
                                             _deltaY{rhs._deltaY},
                                             loss_{rhs.loss_},
                                             boost_{rhs.boost_},
-                                            widget{std::move(rhs.widget)}
+                                            widget{std::move(rhs.widget)},
+                                            xPos{rhs.xPos}
                                             
                                                                                        
 											{
 													//std::cout << "Free_fall_widget(Move)\n";
 													ffgenerator = std::move(rhs.ffgenerator); 
+													
 													//rhs.widget
 													//ffgenerator = FFGenerator(widget, boundary_, wall_boundary_, scale_, 0, static_cast<double>(_startpoint.Y)) ;
 											}//Free_fall_widget(Free_fall_widget&& rhs)
@@ -135,8 +140,10 @@ class  Free_fall_widget{
 	            _deltaY = rhs._deltaY;
 	            loss_ = rhs.loss_;
 	            boost_ = rhs.boost_;
+	            xPos = rhs.xPos;
 	           widget = rhs.widget;
 	           ffgenerator = rhs.ffgenerator;
+	           //std::cout << "Free_fall_widget(.....) move operator=\n " << _startpoint.X << "," << _startpoint.Y << "\n";
 				//init();
 				return *this;
 		}//Move operator=
@@ -159,7 +166,7 @@ class  Free_fall_widget{
 		int scale_{};
 		double xPos{0};
 		double yPos{0};
-		Point _startpoint{};
+		Point _startpoint{0, 0};
 		int _height{0};
 		int _width{0};
 		bool boost_{false};
@@ -180,8 +187,8 @@ class  Free_fall_widget{
 		 	if(loss_ != 0.0) ffgenerator.loss() = loss_;
 		 	xPos = _startpoint.X;
 		 	
-		 	widget_copy = widget;
-		 	ffgenerator_copy= ffgenerator;
+//		 	widget_copy = widget;
+//		 	ffgenerator_copy= ffgenerator;
 			
 		}
 		

@@ -41,7 +41,7 @@ class Widget {
                                                                                                                     _deltaY{dy},
                                                                                                                     _angle{a} {
 	        //std::cout << "Widget(................)\n";
-	//	std::cout << "Widget(....)\n"; // _startpoint = " << _startpoint.X << "," << _startpoint.Y << "\n";
+		//std::cout << "Widget(....)\n _startpoint = " << _startpoint.X << "," << _startpoint.Y << "\n";
 	        //init();
 	        sutex = SDLSuTexWrap(filename, rend);
 	        
