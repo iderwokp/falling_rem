@@ -4,7 +4,7 @@
 
 
 #include <utility>
-enum class Grav_heading {down, up, right, left};
+enum class Grav_heading {down, up, right, left, point};
 
 class Vc_conv {
 	public:
@@ -21,6 +21,7 @@ class Vc_conv {
 		std::pair<double, double> grav_up(double, double);
 		std::pair<double, double> grav_right(double, double);
 		std::pair<double, double> grav_left(double, double);
+		std::pair<double, double> grav_point(double, double);
 };
 
 std::pair<double, double> Vc_conv::convert_from_virtual(double x, double y) {
@@ -37,7 +38,8 @@ std::pair<double, double> Vc_conv::convert_from_virtual(double x, double y) {
 		case Grav_heading::left:
 			return grav_left(x, y);
 			break;
-		
+		case Grav_heading::point:
+			return grav_point(x, y);
 		default:
 			return grav_down(x, y);
 	}
@@ -57,6 +59,10 @@ std::pair<double, double> Vc_conv::grav_right(double x, double y) {
 
 std::pair<double, double> Vc_conv::grav_left(double x, double y) {
 	
+}
+std::pair<double, double> Vc_conv::grav_point(double x, double y) {
+	Angl_coord ac{windows_width_, windows_height_};
+	return ac.polXY(x, y);
 }
 
 #endif//VIRT_COORD_CONVERTER_H
