@@ -12,17 +12,21 @@ class Angl_coord {
 		
 		}
 		std::pair<double, double> polXY(double x, double y) {
-			return 	pol_to_new_xy(xy_to_pol(double x, double y));			
+			std::pair<double, double> dd =  xy_to_pol(x, y);
+			return 	pol_to_new_xy(dd);			
 		}
 		
 	private:
 		std::pair<double, double> xy_to_pol(double x, double y) {
-			return std::make_pair(x*(360/windows_width_), y);
+			//std::cout << "xy_to_pol: windows_width_ = " << 360.0f/windows_width_ << "  x = " << x << "   y = " << y << "\n";
+			return std::make_pair(x*(360.0f/windows_width_), windows_height_ - y);
 		}
 		std::pair<double, double> pol_to_new_xy(std::pair<double, double> xa) {
-			double x = xa.second()*sin(xa.first()*(PI/180)); //TODO: Narrowing
-			double y = xa.second()*cos(xa.first()*(PI/180)); //TODO: Narrowing
-			return std::make_pair(x/2, y/2); // y/2 og x/2 pga senter ligger midt i skjermen, og ikke i et hjørne
+			double x = xa.second*sin(xa.first*(PI/180.0)); 
+			double y = xa.second*cos(xa.first*(PI/180.0)); 
+			
+			//std::cout << "xy_to_pol: x = " << x << "   y = " << y << "\n";
+			return std::make_pair(x/2+desentrX, y/2+desentrY); // y/2 og x/2 pga senter ligger midt i skjermen, og ikke i et hjørne
 		}
 		
 		int windows_width_{0};

@@ -2,7 +2,7 @@
 #define ACONVERTER_H
 #include <cmath>
 
-constexpr float PI = 3.1415926;
+//constexpr float PI = 3.1415926;
 class  Aconverter{
 	public:
 	Aconverter() = default;
