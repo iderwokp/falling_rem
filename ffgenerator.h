@@ -161,13 +161,7 @@ double FFGenerator::retning_oppover() {
 	double s = s00 - velocity.v0_*tid_ + velocity.va_*tid_/2;
 	//std::cout << "Oppover s0_ = " << s0_ << "   s = " << s <<  "\n";
 	velocity.vtot_ = velocity.v0_ - velocity.va_;
-	if(boost_) {
-			
-			if (velocity.v0_<20) {
-				std::cout << "retning_oppover(): velocity.v0_ = " << velocity.v0_ << "\n"; 
-				velocity.v0_ = velocity.vmax;
-			}
- 		}
+	
 	if(velocity.vtot_ <= 0 ) {
 		//of << "\n";
 		nedover = true;
@@ -180,6 +174,14 @@ double FFGenerator::retning_oppover() {
 		s=0;
 		nedover = true;
 		velocity.v0_ = -velocity.v0_ *loss_;
+		std::cout << "retning_oppover(): abs(velocity.v0_) = " << abs(velocity.v0_) << "\n"; 
+ 		if(boost_) {
+			
+			if (abs(velocity.v0_)<20) {
+				std::cout << "retning_oppover(): abs(velocity.v0_) = " << abs(velocity.v0_) << "\n"; 
+				velocity.v0_ = velocity.vmax;
+			}
+ 		}
 		tid_= 0;
 		s0_ = s/scale_;
 	}
