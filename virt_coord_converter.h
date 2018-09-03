@@ -4,6 +4,7 @@
 
 
 #include <utility>
+#include "angl_coord.h"
 enum class Grav_heading {down, up, right, left, point};
 
 class Vc_conv {
@@ -62,6 +63,7 @@ std::pair<double, double> Vc_conv::grav_left(double x, double y) {
 }
 std::pair<double, double> Vc_conv::grav_point(double x, double y) {
 	Angl_coord ac{windows_width_, windows_height_};
+	
 	return ac.polXY(x, y);
 }
 

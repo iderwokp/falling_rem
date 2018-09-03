@@ -34,30 +34,30 @@ int main(int argc, char** argv) {
     SDL_Window* window = sdlwrap.window();
     SDL_Renderer* renderer = sdlwrap.renderer();
     
-    std::vector<Free_fall_widget> ffws(8);
+    //std::vector<Free_fall_widget> ffws(8);
     SDL_Delay(500);   
-    Aconverter ac{50, 15.0f};
-    Aconverter ac2{120, 10.0f};
-    Aconverter ac3{70, 12.0f};
-    Aconverter ac4{100, 20.0f};
-    Aconverter ac5{250, 7.0f};
-    Aconverter ac6{340, 7.0f};
-    float aks{9.81f};
-    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{0,windows_height-126}, 30, 20, ac.x_velocity(), -ac.y_velocity(), 0.8, true});
-    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{windows_width-30,windows_height-26}, 30, 20, ac2.x_velocity(), -ac2.y_velocity(), 0.8, true});
-    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{windows_width-300,windows_height-26}, 30, 20, ac3.x_velocity(), -ac3.y_velocity(), 0.8, true});         
-	ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{300,windows_height-26}, 30, 20, ac4.x_velocity(), -ac4.y_velocity(), 0.8, true});
-	ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{50,windows_height-26}, 30, 20, ac.x_velocity(), -ac.y_velocity(), 0.8, true});
-    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{0,0}, 30, 20, ac6.x_velocity(), -ac6.y_velocity(), 0.8, true});
-    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{windows_width-100,windows_height-260}, 30, 20, ac3.x_velocity(), -ac3.y_velocity(), 0.8, true});         
-	ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{500,windows_height-100}, 30, 20, ac4.x_velocity(), -ac4.y_velocity(), 0.8, true});
+    Aconverter ac{0, 15.0f};
+//    Aconverter ac2{120, 10.0f};
+//    Aconverter ac3{70, 12.0f};
+//    Aconverter ac4{100, 20.0f};
+//    Aconverter ac5{250, 7.0f};
+//    Aconverter ac6{340, 7.0f};
+//    float aks{9.81f};
+//    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{0,windows_height-126}, 30, 20, ac.x_velocity(), -ac.y_velocity(), 0.8, true});
+//    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{windows_width-30,windows_height-26}, 30, 20, ac2.x_velocity(), -ac2.y_velocity(), 0.8, true});
+//    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{windows_width-300,windows_height-26}, 30, 20, ac3.x_velocity(), -ac3.y_velocity(), 0.8, true});         
+//	ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{300,windows_height-26}, 30, 20, ac4.x_velocity(), -ac4.y_velocity(), 0.8, true});
+//	ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{50,windows_height-26}, 30, 20, ac.x_velocity(), -ac.y_velocity(), 0.8, true});
+//    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{0,0}, 30, 20, ac6.x_velocity(), -ac6.y_velocity(), 0.8, true});
+//    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{windows_width-100,windows_height-260}, 30, 20, ac3.x_velocity(), -ac3.y_velocity(), 0.8, true});         
+//	ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{500,windows_height-100}, 30, 20, ac4.x_velocity(), -ac4.y_velocity(), 0.8, true});
 
     
-    //Free_fall_widget ffw{"ball.bmp", renderer, windows_height, windows_width, 200, Point{0,windows_height-26}, 30, 20, ac.x_velocity(), -ac.y_velocity(), 0.8, true};
-    //ffw.set_aksellerasjon(aks); 
-    for(auto& ff: ffws) {
-        	ff.set_aksellerasjon(aks);
-        }
+    Free_fall_widget ffw{"ball.bmp", renderer, windows_height, windows_width, 200, Point{0,windows_height-660}, 30, 20, ac.x_velocity(), -ac.y_velocity(), 0.8, true};
+    ffw.set_aksellerasjon(.981); 
+//    for(auto& ff: ffws) {
+//        	ff.set_aksellerasjon(aks);
+//        }
     int index{400};
     //Free_fall_widget ffw_copy {ffw};
     //SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
@@ -66,10 +66,11 @@ int main(int argc, char** argv) {
 	//while(index--) {
 	
         EventHandler(event, quit, windows_width, windows_height);
-        for(auto& ff: ffws) {
-        	ff.updateXY(windows_width);
-        }
-        
+        ffw.updateXY(windows_width);
+//        for(auto& ff: ffws) {
+//        	ff.updateXY(windows_width);
+//        }
+//        
 //		--index;
 //		if(index == 0) {
 //			ffw = ffw_copy;
