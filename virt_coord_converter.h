@@ -6,7 +6,7 @@
 #include <utility>
 enum class Grav_heading {down, up, right, left, point};
 
-class Vc_conv {
+class Vc_conv { 
 	public:
 		Vc_conv() = default;
 		Vc_conv(Grav_heading gv, int w, int h): gravh{gv}, windows_width_{w}, windows_height_{h} {}
