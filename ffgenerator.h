@@ -102,7 +102,7 @@ void FFGenerator::set_aksellerasjon(float x) {
 }
 void FFGenerator::set_widget_xy(int x) {
 	//std::cout << "x = " << x << "\n";
-	Vc_conv vc(Grav_heading::point, wall_boundary, boundary_);
+	Vc_conv vc(Grav_heading::down, wall_boundary, boundary_);
 	
 	double y = next_distance();
 	//std::cout << "x = " << x << "   y = " << y << "\n";
@@ -132,8 +132,12 @@ double FFGenerator::retning_nedover() {
 		nedover = false;
 		velocity.v0_ = velocity.vtot_*loss_;
 		if(boost_) {
-			if (velocity.v0_<20) velocity.v0_ = velocity.vmax;
- 		}
+			
+			if (velocity.v0_<20) {
+				std::cout << "retning_nedover(): velocity.v0_ = " << velocity.v0_ << "\n"; 
+				velocity.v0_ = velocity.vmax;
+			}
+	  	}
 		tid_ = 0;
 		s0_ = s/scale_;
 	}
@@ -144,7 +148,7 @@ double FFGenerator::retning_nedover() {
 		tid_= 0;
 		s0_ = s/scale_;
 	}
-	//std::cout << "s = " << s << "\n";
+	
 	++tid_;
 	//of << "retning_nedover(): " << "s/scale_=" << s/scale_ << "\t  s=" << s << "\t\ts0_=" << s0_ << "\t\tnedover=" << nedover << "\t\tvtot_=" << vtot_ << "\ttid_=" << tid_ << "\t\tv0_=" << v0_ << "\t\tva_=" << va_ << "\n";
 	return s/scale_;
@@ -157,7 +161,13 @@ double FFGenerator::retning_oppover() {
 	double s = s00 - velocity.v0_*tid_ + velocity.va_*tid_/2;
 	//std::cout << "Oppover s0_ = " << s0_ << "   s = " << s <<  "\n";
 	velocity.vtot_ = velocity.v0_ - velocity.va_;
-	
+	if(boost_) {
+			
+			if (velocity.v0_<20) {
+				std::cout << "retning_oppover(): velocity.v0_ = " << velocity.v0_ << "\n"; 
+				velocity.v0_ = velocity.vmax;
+			}
+ 		}
 	if(velocity.vtot_ <= 0 ) {
 		//of << "\n";
 		nedover = true;
