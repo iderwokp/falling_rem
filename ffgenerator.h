@@ -14,6 +14,7 @@ struct Velocity {
 	double vmax{0};	
 };
 
+
 //class Vc_conv;
 class FFGenerator {// Frittfall Generator
 	
@@ -63,6 +64,7 @@ class FFGenerator {// Frittfall Generator
 		~FFGenerator() { /*std::cout << "~FFGenerator(destruct) \n";*/}
 		//FFGenerator(Widget& widget, double akslr, double v0, double s0): aksellerasjon_{akslr}, v0_{v0}, s0_{s0} {}
 		double next_distance(); //I en loop, vil denne gi neste Y-koordinat
+		double next_step();
 		void set_widget_xy(int);
 		bool& boost() {return boost_;}
 		double& loss() { return loss_;}
@@ -104,7 +106,9 @@ void FFGenerator::set_widget_xy(int x) {
 	//std::cout << "x = " << x << "\n";
 	Vc_conv vc(Grav_heading::down, wall_boundary, boundary_);
 	
-	double y = next_distance();
+	//double y = next_distance();
+	double y = next_step();
+	x = y;
 	//std::cout << "x = " << x << "   y = " << y << "\n";
 	auto [xx, yy] = vc.convert_from_virtual(x, y);
 	//std::cout << "xx = " << xx << "   yy = " << yy << "\n\n";
@@ -117,7 +121,14 @@ double FFGenerator::next_distance() {
 	else return retning_oppover();
 	
 }
-
+double FFGenerator::next_step() {
+	velocity.va_ = aksellerasjon_ * tid_;
+	int s00 = s0_*scale_;
+	double s = s00 + velocity.v0_*tid_ + velocity.va_*tid_/2;
+	velocity.vtot_ = velocity.v0_ + velocity.va_;
+	++tid_;
+	return s/scale_;
+}
 double FFGenerator::retning_nedover() {
 	//s = v0*tid + (aksellerasjon_*tid*tid)/2
 
