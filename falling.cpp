@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
     
     //std::vector<Free_fall_widget> ffws(8);
     SDL_Delay(500);   
-    Aconverter ac{270, 0.0f};
+    Aconverter ac{0, 0.0f};
 //    Aconverter ac2{120, 10.0f};
 //    Aconverter ac3{70, 12.0f};
 //    Aconverter ac4{100, 20.0f};
@@ -53,8 +53,9 @@ int main(int argc, char** argv) {
 //	ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{500,windows_height-100}, 30, 20, ac4.x_velocity(), -ac4.y_velocity(), 0.8, true});
 
     
-    Free_fall_widget ffw{"ball.bmp", renderer, windows_height, windows_width, 200, Point{300,0}, 30, 20, ac.x_velocity(), -ac.y_velocity(), 0.8, true};
-    ffw.set_aksellerasjon(0.981); 
+    Free_fall_widget ffw{"ball.bmp", renderer, windows_height, windows_width, 200, Point{300,0}, 30, 20, ac.x_velocity(), ac.y_velocity(), 0.8, true};
+    //ffw.set_aksellerasjon(0.981f,0.981f); 
+    ffw.set_aksellerasjon(0.981f,280); 
 //    for(auto& ff: ffws) {
 //        	ff.set_aksellerasjon(aks);
 //        }

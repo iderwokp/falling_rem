@@ -34,15 +34,18 @@ class  Free_fall_widget{
 											 	init();										 	
 											 
 											 }
-		void set_aksellerasjon(float a) {
-			ffgenerator.set_aksellerasjon(a);
+		void set_aksellerasjon(float ax, float ay) {
+			ffgenerator.set_aksellerasjon(ax, ay);
+		}
+		void set_aksellerasjon(float ax, int ay) {
+			ffgenerator.set_aksellerasjon(ax, ay);
 		}
 		bool& boost()  {
 			return ffgenerator.boost();
 		}
-		void setXY(int x) {
+		void setXY() {
 			
-			return ffgenerator.set_widget_xy(x);
+			return ffgenerator.set_widget_xy();
 		}
 		void setDeltaX(int dx) {
 			widget->set_deltaX(dx);	
@@ -55,7 +58,8 @@ class  Free_fall_widget{
 		
 		void updateXY(int windows_width) {
 			//std::cout << "xPos = " << xPos << "\n";
-			setXY(xPos);
+			//setXY(xPos);
+			setXY();
 			handle_side_crash(windows_width);
 			xPos += widget->deltaX();						
 		}
@@ -182,7 +186,7 @@ class  Free_fall_widget{
 		void init() {
 			//std::cout << "init()\n";
 			widget = std::make_shared<Widget>(filename_, renderer_, _startpoint, _width, _height, _deltaX);
-	    	 ffgenerator = FFGenerator(widget, boundary_, wall_boundary_, scale_, _deltaY, static_cast<double>(_startpoint.Y)) ;
+	    	 ffgenerator = FFGenerator(widget, boundary_, wall_boundary_, scale_, _deltaX, _deltaY, _startpoint.X, _startpoint.Y) ;
 		  	if(boost_) ffgenerator.boost() = true;
 		 	if(loss_ != 0.0) ffgenerator.loss() = loss_;
 		 	xPos = _startpoint.X;
