@@ -2,6 +2,7 @@
 #include <iostream>
 //#include <fstream>
 #include <vector>
+#include <cmath>
 //#include <widget.h>
 //#include "ffgenerator.h"
 #include "sdl_wrap.h"
@@ -53,39 +54,43 @@ int main(int argc, char** argv) {
 //	ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{500,windows_height-100}, 30, 20, ac4.x_velocity(), -ac4.y_velocity(), 0.8, true});
 
     
-    Free_fall_widget ffw{"ball.bmp", renderer, windows_height, windows_width, 200, Point{300,0}, 30, 20, ac.x_velocity(), ac.y_velocity(), 0.8, true};
+    Free_fall_widget ffw{"ball.bmp", renderer, windows_height, windows_width, 200, Point{100,100}, 30, 20, ac.x_velocity(), ac.y_velocity(), 0.8, true};
     //ffw.set_aksellerasjon(0.981f,0.981f); 
-    ffw.set_aksellerasjon(0.981f,280); 
+    //ffw.set_aksellerasjon(0.981f,-45);
+     
 //    for(auto& ff: ffws) {
 //        	ff.set_aksellerasjon(aks);
 //        }
     int index{400};
-    //Free_fall_widget ffw_copy {ffw};
-    //SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
-   // SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
-	while(!quit) {
-	//while(index--) {
+    const double midwinX = windows_width/2;
+    const double midwinY = windows_height/2;
+	//while(!quit) {
+	while(index--) {
 	
         EventHandler(event, quit, windows_width, windows_height);
         ffw.updateXY(windows_width);
+        auto [x, y] = ffw.current_coords();
+        //std::cout << "x = " << x << "  y = " << y << "\n"; 
+        double vecX = midwinX - static_cast<double>(x);
+        double vecY = midwinY - static_cast<double>(y);
+        //std::cout << "vecX = " << vecX << "  vecY = " << vecY << "\n"; 
+        double vecXY = sqrt(vecX*vecX + vecY*vecY);
+        double radangl = asin(vecX/vecXY);
+        int angle_ = static_cast<int>(radangl/(3.1415926/180.0));
+        ffw.set_aksellerasjon(0.981f,angle_);
+        std::cout << "vecXY = " << vecXY << "  angle_ = " << angle_ << "\n"; 
+        
 //        for(auto& ff: ffws) {
 //        	ff.updateXY(windows_width);
 //        }
 //        
-//		--index;
+		--index;
 //		if(index == 0) {
 //			ffw = ffw_copy;
 //			index = 400;	
 //			ffw.set_aksellerasjon(aks); 
 //		}
-		
-		//SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
-		//
-	//	SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
-		//SDL_RenderClear(renderer); 
-//		SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
-//		SDL_RenderDrawLine(renderer, 0,windows_height, windows_width,0);
-		//ffw.updateXY(windows_width);
+	
 	    SDL_RenderPresent(renderer);
 	    
         SDL_RenderClear(renderer); 

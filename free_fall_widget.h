@@ -47,6 +47,10 @@ class  Free_fall_widget{
 			
 			return ffgenerator.set_widget_xy();
 		}
+		Point current_coords() {
+			return widget->startpoint();			
+		}
+		
 		void setDeltaX(int dx) {
 			widget->set_deltaX(dx);	
 		}
