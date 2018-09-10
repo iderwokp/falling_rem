@@ -54,28 +54,34 @@ int main(int argc, char** argv) {
 //	ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{500,windows_height-100}, 30, 20, ac4.x_velocity(), -ac4.y_velocity(), 0.8, true});
 
     
-    Free_fall_widget ffw{"ball.bmp", renderer, windows_height, windows_width, 200, Point{600,350}, 30, 20, ac.x_velocity(), ac.y_velocity(), 0.8, true};
+    Free_fall_widget ffw{"ball.bmp", renderer, windows_height, windows_width, 200, Point{450,400}, 30, 20, ac.x_velocity(), ac.y_velocity(), 0.8, true};
     //ffw.set_aksellerasjon(0.981f,0.981f); 
     //ffw.set_aksellerasjon(0.981f,90);
      
 //    for(auto& ff: ffws) {
 //        	ff.set_aksellerasjon(aks);
 //        }
-    int index{400};
+    int index{4700};
     const double midwinX = windows_width/2;
     const double midwinY = windows_height/2;
     //std::cout << "midwinX = " << midwinX << "  midwinY = " << midwinY << "\n"; 
 	//while(!quit) {
-	while(index--) {
+	//const double storK {1000000};
+	while(index-- && !quit) {
 	
         EventHandler(event, quit, windows_width, windows_height);
-        ffw.updateXY(windows_width);
+        //ffw.updateXY(windows_width);
         auto [x, y] = ffw.current_coords();
         //std::cout << "x = " << x << "  y = " << y << "\n"; 
         double vecX = midwinX - static_cast<double>(x);
         double vecY = midwinY - static_cast<double>(y);
+        
         std::cout << "vecX = " << vecX << "  vecY = " << vecY << "\n"; 
+         
         double vecXY = sqrt(vecX*vecX + vecY*vecY);
+//        vecX*=storK;
+//        vecY*=storK;
+//        vecXY*=storK;
         double radangl{};
         if (vecY >= 0)  radangl = asin(vecX/vecXY);
         else {
@@ -84,8 +90,8 @@ int main(int argc, char** argv) {
         }
         
         int angle_ = static_cast<int>(radangl/(3.1415926/180.0));
-        ffw.set_aksellerasjon(0.981f,angle_);
-        std::cout << "vecXY = " << vecXY << "  angle_ = " << angle_ << "\n"; 
+        ffw.set_aksellerasjon(0.0981f,angle_);
+        std::cout << "vecXY = " << vecXY << "  angle_ = " << angle_ << "  vecY/vecXY  " << vecY/vecXY << "\n"; 
         
 //        for(auto& ff: ffws) {
 //        	ff.updateXY(windows_width);
@@ -97,11 +103,15 @@ int main(int argc, char** argv) {
 //			index = 400;	
 //			ffw.set_aksellerasjon(aks); 
 //		}
-	
-	    SDL_RenderPresent(renderer);
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+		SDL_RenderClear(renderer); 
 	    
-        SDL_RenderClear(renderer); 
-			//SDL_RenderDrawLine(renderer, 100,100, 200,200);
+	    SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
+        
+			SDL_RenderDrawLine(renderer, 0,midwinY, windows_width,midwinY);
+			SDL_RenderDrawLine(renderer, midwinX,0, midwinX, windows_height);
+			ffw.updateXY(windows_width);
+			SDL_RenderPresent(renderer);
 		SDL_Delay(5);   
     }
 
