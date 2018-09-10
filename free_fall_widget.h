@@ -37,8 +37,8 @@ class  Free_fall_widget{
 		void set_aksellerasjon(double ax, double ay) {
 			ffgenerator.set_aksellerasjon(ax, ay);
 		}
-		void set_aksellerasjon(double ax, int ay) {
-			ffgenerator.set_aksellerasjon(ax, ay);
+		void set_aksellerasjon(double ax, double ay, bool t) {
+			ffgenerator.set_aksellerasjon(ax, ay, t);
 		}
 		bool& boost()  {
 			return ffgenerator.boost();

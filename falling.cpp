@@ -54,7 +54,7 @@ int main(int argc, char** argv) {
 //	ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{500,windows_height-100}, 30, 20, ac4.x_velocity(), -ac4.y_velocity(), 0.8, true});
 
     
-    Free_fall_widget ffw{"ball.bmp", renderer, windows_height, windows_width, 200, Point{450,400}, 30, 20, ac.x_velocity(), ac.y_velocity(), 0.8, true};
+    Free_fall_widget ffw{"ball.bmp", renderer, windows_height, windows_width, 200, Point{550,250}, 30, 20, ac.x_velocity(), ac.y_velocity(), 0.8, true};
     //ffw.set_aksellerasjon(0.981f,0.981f); 
     //ffw.set_aksellerasjon(0.981f,90);
      
@@ -73,10 +73,10 @@ int main(int argc, char** argv) {
         //ffw.updateXY(windows_width);
         auto [x, y] = ffw.current_coords();
         //std::cout << "x = " << x << "  y = " << y << "\n"; 
-        double vecX = midwinX - static_cast<double>(x);
-        double vecY = midwinY - static_cast<double>(y);
-        
-        std::cout << "vecX = " << vecX << "  vecY = " << vecY << "\n"; 
+        double vecX = midwinX - x;//static_cast<double>(x);
+        double vecY = midwinY - y;//static_cast<double>(y);
+        if(vecY < 0) break;
+        std::cout << "vecX = " << vecX << " x = " << x << "  vecY = " << vecY << " y = " <<  y << "\n"; 
          
         double vecXY = sqrt(vecX*vecX + vecY*vecY);
 //        vecX*=storK;
@@ -89,9 +89,9 @@ int main(int argc, char** argv) {
         	if(vecX < 0) radangl = -radangl;
         }
         
-        int angle_ = static_cast<int>(radangl/(3.1415926/180.0));
-        ffw.set_aksellerasjon(0.0981f,angle_);
-        std::cout << "vecXY = " << vecXY << "  angle_ = " << angle_ << "  vecY/vecXY  " << vecY/vecXY << "\n"; 
+        float angle_ = (radangl/(3.1415926/180.0));
+        ffw.set_aksellerasjon(0.981,angle_, true); 
+        std::cout << "vecXY = " << vecXY << "  angle_ = " << angle_ << "  vecX/vecXY  " << vecX/vecXY << "\n\n"; 
         
 //        for(auto& ff: ffws) {
 //        	ff.updateXY(windows_width);
@@ -104,7 +104,7 @@ int main(int argc, char** argv) {
 //			ffw.set_aksellerasjon(aks); 
 //		}
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
-		SDL_RenderClear(renderer); 
+		//SDL_RenderClear(renderer); 
 	    
 	    SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
         

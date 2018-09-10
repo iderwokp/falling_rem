@@ -7,8 +7,8 @@
 
 
 struct Point {
-    int X{0};
-    int Y{0};
+    double X{0.0};
+    double Y{0.0};
 };
 //struct Rect {
 //    Point P;
@@ -48,7 +48,7 @@ class Widget {
 	    }
 
 	    SDL_Rect rect() const {
-	        return SDL_Rect{_startpoint.X, _startpoint.Y, _width, _height};
+	        return SDL_Rect{static_cast<int>(_startpoint.X), static_cast<int>(_startpoint.Y), _width, _height};
 	    }
 	    
 	    void make(Point p, int w, int h) {
@@ -56,11 +56,11 @@ class Widget {
 	        _startpoint = p;
 	        _width = w;
 	        _height = h;
-	        _rect = {_startpoint.X, _startpoint.Y, _width, _height};
+	        _rect = {static_cast<int>(_startpoint.X), static_cast<int>(_startpoint.Y), _width, _height};
 	    }
 	    void make() {
 	        //std::cout << "make()\n";
-	        _rect = {_startpoint.X, _startpoint.Y, _width, _height};
+	        _rect = {static_cast<int>(_startpoint.X), static_cast<int>(_startpoint.Y), _width, _height};
 	    }
 	    void show() {
 	        //std::cout << "show()\n";
