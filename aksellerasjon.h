@@ -8,7 +8,7 @@ class Aksellerasjon {
 		Aksellerasjon() = default;
 		Aksellerasjon(double x, double y);
 		Aksellerasjon(double h, int a);
-		//Aksellerasjon& operator=(const Aksellerasjon& rhs);// = default;
+		
 		double X() {return X_;}
 		double Y() {return Y_;}
 		double hyp() {return hyp_;}
@@ -45,15 +45,15 @@ Aksellerasjon::Aksellerasjon(double z, int a): hyp_{z}, angle_{a} {
 
 Aksellerasjon::calc_XY(){
 	double rad = (angle_)*(PI/180.0);// angle_+90 pga y har 0 på toppen av koordinatsystemet
-	X_ = hyp_*sin(rad);
-	Y_ = hyp_*cos(rad);
+	X_ = hyp_*cos(rad);
+	Y_ = hyp_*sin(rad);
 	
 	//std::cout << "calc_XY(): X_ = " << X_ << "  Y_ = " << Y_ << "\n";
 }
 	
 Aksellerasjon::calc_hyp_a(){//TODO: Sjekke om denne matematikken holder mål
 	hyp_ = sqrt(X_*X_ + Y_*Y_);
-	double radangl = asin(X_/hyp_);
+	double radangl = acos(X_/hyp_);
 	angle_ = static_cast<int>(radangl/(PI/180.0));
 }
 
