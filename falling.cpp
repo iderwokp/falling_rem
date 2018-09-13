@@ -37,7 +37,7 @@ int main(int argc, char** argv) {
     
     //std::vector<Free_fall_widget> ffws(8);
     SDL_Delay(500);   
-    Aconverter ac{0, 0.0f};
+    Aconverter ac{180, 2.0f};
 //    Aconverter ac2{120, 10.0f};
 //    Aconverter ac3{70, 12.0f};
 //    Aconverter ac4{100, 20.0f};
@@ -54,14 +54,14 @@ int main(int argc, char** argv) {
 //	ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{500,windows_height-100}, 30, 20, ac4.x_velocity(), -ac4.y_velocity(), 0.8, true});
 
     
-    Free_fall_widget ffw{"ball.bmp", renderer, windows_height, windows_width, 200, Point{500,200}, 30, 20, ac.x_velocity(), ac.y_velocity(), 0.8, true};
+    Free_fall_widget ffw{"ball.bmp", renderer, windows_height, windows_width, 200, Point{200,200}, 30, 20, ac.x_velocity(), ac.y_velocity(), 0.8, true};
     //ffw.set_aksellerasjon(0.981f,0.981f); 
     //ffw.set_aksellerasjon(0.981f,90);
      
 //    for(auto& ff: ffws) {
 //        	ff.set_aksellerasjon(aks);
 //        }
-    int index{40}; 
+    int index{3010}; 
     const double midwinX = windows_width/2;
     const double midwinY = windows_height/2;
     //std::cout << "midwinX = " << midwinX << "  midwinY = " << midwinY << "\n"; 
@@ -75,7 +75,7 @@ int main(int argc, char** argv) {
         //std::cout << "x = " << x << "  y = " << y << "\n"; 
         double vecX = midwinX - x;//static_cast<double>(x);
         double vecY = midwinY - y;//static_cast<double>(y);
-        if(vecY == 0 || vecX == 0) { std::cout << "Nådd null: index = " << index << "\n";break;}
+        //if(vecY <= 0 || vecX <= 0) { std::cout << "Nådd null: index = " << index << "\n";break;}
         std::cout << "vecX = " << vecX << " x = " << x << "  vecY = " << vecY << " y = " <<  y << "\n"; 
          
         double vecXY = sqrt(vecX*vecX + vecY*vecY);
@@ -92,7 +92,7 @@ int main(int argc, char** argv) {
 //        
         float angle_ = (radangl*(180.0/3.1415926));
         angle_ = (90.0-angle_); 
-        ffw.set_aksellerasjon(0.981,angle_, true); 
+        ffw.set_aksellerasjon(0,angle_, true); 
         std::cout << "vecXY = " << vecXY << "  angle_ = " << angle_ << "  vecX/vecXY  " << vecX/vecXY << "\n\n"; 
         
 //        for(auto& ff: ffws) {
