@@ -28,7 +28,7 @@ class FFGenerator {// Frittfall Generator
 		FFGenerator(std::shared_ptr<Widget> wid, int bound, int wbound, int scale, double vx0 = 0, double vy0 = 0, double sx0 = 0, double sy0 = 0): widget{std::move(wid)}, boundary_{bound}, wall_boundary{wbound}, scale_{scale}, sx0_{sx0}, sy0_{sy0} {
 		velocity.vx0_= vx0; 
 		velocity.vy0_= vy0; 
-		//std::cout << "FFGenerator(........) \n";
+		std::cout << "FFGenerator(........) \n" << velocity.vx0_ << ", " << velocity.vy0_ << "\n";
 		}
 		
 		~FFGenerator() { /*std::cout << "~FFGenerator(destruct) \n";*/}
@@ -103,19 +103,31 @@ void FFGenerator::set_widget_xy() {
 //	
 //}
 double FFGenerator::next_Y() {
+	//std::cout << "next_Y(): velocity.vy0_ = " << velocity.vy0_ << "\n";
 	velocity.va_ = aksellerasjon_.Y() * tid_;
 	int s00 = sy0_*scale_;
 	double s = s00 + velocity.vy0_*tid_ + velocity.va_*tid_/2;
 	velocity.vtot_ = velocity.vy0_ + velocity.va_;
-	//++tid_;
+	
+	if (s/scale_ > boundary_-25) {
+		//std::cout << "s/scale_ = " << s/scale_ << " boundary_-25 = " << boundary_-25 << "\n"; 
+		s = (boundary_-25)*scale_;
+		velocity.vy0_ = -velocity.vtot_;
+	}
 	return s/scale_;
 }
 double FFGenerator::next_X() {
+	//std::cout << "next_X(): velocity.vx0_ = " << velocity.vx0_ << "\n";
 	velocity.va_ = aksellerasjon_.X() * tid_;
 	int s00 = sx0_*scale_;
 	double s = s00 + velocity.vx0_*tid_ + velocity.va_*tid_/2;
 	velocity.vtot_ = velocity.vx0_ + velocity.va_;
-	//++tid_;
+	
+	if (s/scale_ > boundary_-25) {
+		//std::cout << "s/scale_ = " << s/scale_ << " boundary_-25 = " << boundary_-25 << "\n"; 
+		s = (boundary_-25)*scale_;
+		velocity.vx0_ = -velocity.vtot_;
+	}
 	return s/scale_;
 }
 //double FFGenerator::retning_nedover() {

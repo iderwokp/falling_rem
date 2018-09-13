@@ -6,12 +6,18 @@
 class  Aconverter{
 	public:
 	Aconverter() = default;
-	Aconverter(float a /*grader*/, float vel, int rel=200) : angle{a*(PI/180)}, velocity{vel}, relation{rel} {}
-	float x_velocity() {
-		return velocity*cos(angle);
+	Aconverter(float a /*grader*/, float vel, int rel=200) : angle{a*(PI/180)}, velocity{vel}, relation{rel} {
+		std::cout << __func__ << ": angle=" << angle << " velocity=" << velocity << "\n";
 	}
+	float x_velocity() {
+		float x = velocity*cos(angle);
+		std::cout << __func__ << ": x = " << x << "\n";
+		return x;
+			}
 	float y_velocity() {
-		return velocity*sin(angle)*relation;
+		float y = velocity*sin(angle)*relation;
+		std::cout << __func__ << ": y = " << y << "\n";
+		return y;
 	}
 	private:
 		float angle{0}; //Radianer

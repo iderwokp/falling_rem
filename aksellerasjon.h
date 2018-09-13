@@ -43,7 +43,7 @@ Aksellerasjon::Aksellerasjon(float z, int a): hyp_{z}, angle_{a} {
 }
 
 Aksellerasjon::calc_XY(){
-	float rad = (angle_+90)*(PI/180.0f);// angle_-90 pga y har 0 på toppen av koordinatsystemet
+	float rad = (angle_+90)*(PI/180.0f);// angle_+90 pga y har 0 på toppen av koordinatsystemet
 	X_ = hyp_*sin(rad);
 	Y_ = hyp_*cos(rad);
 	std::cout << "calc_XY(): X_ = " << X_ << "  Y_ = " << Y_ << "\n";

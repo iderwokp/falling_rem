@@ -26,7 +26,7 @@ int main(int argc, char** argv) {
 	
 	SDL_Event event;
 	bool quit{false};
-    const int windows_width {1300};
+    const int windows_width {700};
     const int windows_height {700};
     SDL_Init(SDL_INIT_VIDEO);
     
@@ -36,7 +36,8 @@ int main(int argc, char** argv) {
     
     //std::vector<Free_fall_widget> ffws(8);
     SDL_Delay(500);   
-    Aconverter ac{0, 0.0f};
+    //           {vinkel, fart}
+    Aconverter ac{60, 80.0f,2};
 //    Aconverter ac2{120, 10.0f};
 //    Aconverter ac3{70, 12.0f};
 //    Aconverter ac4{100, 20.0f};
@@ -52,10 +53,10 @@ int main(int argc, char** argv) {
 //    ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{windows_width-100,windows_height-260}, 30, 20, ac3.x_velocity(), -ac3.y_velocity(), 0.8, true});         
 //	ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{500,windows_height-100}, 30, 20, ac4.x_velocity(), -ac4.y_velocity(), 0.8, true});
 
-    
-    Free_fall_widget ffw{"ball.bmp", renderer, windows_height, windows_width, 200, Point{300,0}, 30, 20, ac.x_velocity(), ac.y_velocity(), 0.8, true};
-    //ffw.set_aksellerasjon(0.981f,0.981f); 
-    ffw.set_aksellerasjon(0.981f,280); 
+    //std::cout << "main(): " << ac.x_velocity() << ", " <<  ac.y_velocity()<< "\n";
+    Free_fall_widget ffw{"ball.bmp", renderer, windows_height, windows_width, 20, Point{0,windows_height-10}, 30, 20, ac.x_velocity(), ac.y_velocity(), 0.8, true};
+    //ffw.set_aksellerasjon(0.0f,0.981f); 
+    ffw.set_aksellerasjon(0.981f,270); 
 //    for(auto& ff: ffws) {
 //        	ff.set_aksellerasjon(aks);
 //        }
