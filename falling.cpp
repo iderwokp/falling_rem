@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
     
     //std::vector<Free_fall_widget> ffws(8);
     SDL_Delay(500);   
-    Aconverter ac{0, 15.0f};
+    Aconverter ac{20, 15.0f};
 //    Aconverter ac2{120, 10.0f};
 //    Aconverter ac3{70, 12.0f};
 //    Aconverter ac4{100, 20.0f};
