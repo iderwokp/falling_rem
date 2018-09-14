@@ -102,7 +102,7 @@ void FFGenerator::set_aksellerasjon(float x) {
 }
 void FFGenerator::set_widget_xy(int x) {
 	//std::cout << "x = " << x << "\n";
-	Vc_conv vc(Grav_heading::point, wall_boundary, boundary_);
+	Vc_conv vc(Grav_heading::down, wall_boundary, boundary_);
 	
 	double y = next_distance();
 	//std::cout << "x = " << x << "   y = " << y << "\n";
