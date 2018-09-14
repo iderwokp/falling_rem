@@ -22,8 +22,8 @@ class Angl_coord {
 			return std::make_pair(x*(360.0f/windows_width_), windows_height_ - y);
 		}
 		std::pair<double, double> pol_to_new_xy(std::pair<double, double> xa) {
-			double x = xa.second*sin(xa.first*(PI/180.0)); 
-			double y = xa.second*cos(xa.first*(PI/180.0)); 
+			double x = xa.second*cos(xa.first*(PI/180.0)); 
+			double y = xa.second*sin(xa.first*(PI/180.0)); 
 			
 			//std::cout << "xy_to_pol: x = " << x << "   y = " << y << "\n";
 			return std::make_pair(x/2+desentrX, y/2+desentrY); // y/2 og x/2 pga senter ligger midt i skjermen, og ikke i et hjørne
