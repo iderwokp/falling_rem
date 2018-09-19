@@ -54,18 +54,18 @@ int main(int argc, char** argv) {
 //	ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{500,windows_height-100}, 30, 20, ac4.x_velocity(), -ac4.y_velocity(), 0.8, true});
 
     //std::cout << "main(): " << ac.x_velocity() << ", " <<  ac.y_velocity()<< "\n";
-    Free_fall_widget ffw{"ball.bmp", renderer, windows_height, windows_width, 20, Point{0,windows_height-10}, 30, 20, ac.x_velocity(), ac.y_velocity(), 0.8, true};
+    Free_fall_widget ffw{"ball.bmp", renderer, windows_height, windows_width, 20, Point{30,windows_height-32}, 30, 20, ac.x_velocity(), ac.y_velocity(), 0.8, true};
     //ffw.set_aksellerasjon(0.0f,0.981f); 
     ffw.set_aksellerasjon(0.981f,270); 
 //    for(auto& ff: ffws) {
 //        	ff.set_aksellerasjon(aks);
 //        }
-    int index{400};
+    int index{300};
     //Free_fall_widget ffw_copy {ffw};
     //SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
    // SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
-	while(!quit) {
-	//while(index--) {
+	//while(!quit) {
+	while(index-- && !quit) {
 	
         EventHandler(event, quit, windows_width, windows_height);
         ffw.updateXY(windows_width);

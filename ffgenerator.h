@@ -58,7 +58,7 @@ class FFGenerator {// Frittfall Generator
 	
 		double sx0_{0};
 		double sy0_{0};
-		int tid_{0};
+		int tid_{1};
 	
 		bool boost_{false};
 		double startY{0};
@@ -109,10 +109,12 @@ double FFGenerator::next_Y() {
 	double s = s00 + velocity.vy0_*tid_ + velocity.va_*tid_/2;
 	velocity.vtot_ = velocity.vy0_ + velocity.va_;
 	
-	if (s/scale_ > boundary_-25) {
-		//std::cout << "s/scale_ = " << s/scale_ << " boundary_-25 = " << boundary_-25 << "\n"; 
+	if (s/scale_ > boundary_-25) { 
+		std::cout << __func__ << "(): s = " << s << "  s/scale_ = " << s/scale_ << " velocity.vy0_ = " << velocity.vy0_ << "  velocity.vtot_ = " << velocity.vtot_ << "\n"; 	
 		s = (boundary_-25)*scale_;
+		//s = 13000;
 		velocity.vy0_ = -velocity.vtot_;
+		std::cout << __func__ << "() slutt: s = " << s << "  s/scale_ = " << s/scale_ << " velocity.vy0_ = " << velocity.vy0_ << "  velocity.vtot_ = " << velocity.vtot_ << "\n\n"; 	
 	}
 	return s/scale_;
 }
@@ -120,11 +122,11 @@ double FFGenerator::next_X() {
 	//std::cout << "next_X(): velocity.vx0_ = " << velocity.vx0_ << "\n";
 	velocity.va_ = aksellerasjon_.X() * tid_;
 	int s00 = sx0_*scale_;
-	double s = s00 + velocity.vx0_*tid_ + velocity.va_*tid_/2;
+	double s = s00 + velocity.vx0_*tid_ + velocity.va_*tid_/2; 
 	velocity.vtot_ = velocity.vx0_ + velocity.va_;
 	
 	if (s/scale_ > boundary_-25) {
-		//std::cout << "s/scale_ = " << s/scale_ << " boundary_-25 = " << boundary_-25 << "\n"; 
+		std::cout  << __func__ << "(): s = " << s << "  s/scale_ = " << s/scale_ << " boundary_-25 = " << boundary_-25 << "\n"; 
 		s = (boundary_-25)*scale_;
 		velocity.vx0_ = -velocity.vtot_;
 	}
