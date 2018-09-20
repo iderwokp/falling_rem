@@ -61,12 +61,13 @@ int main(int argc, char** argv) {
 //    for(auto& ff: ffws) {
 //        	ff.set_aksellerasjon(aks);
 //        }
-    int index{3010}; 
+    int index{700}; 
     const double midwinX = windows_width/2;
     const double midwinY = windows_height/2;
     //std::cout << "midwinX = " << midwinX << "  midwinY = " << midwinY << "\n"; 
 	//while(!quit) {
 	//const double storK {1000000};
+	float angle_{0.0f};
 	while(index >=0 && !quit) {
 	
         EventHandler(event, quit, windows_width, windows_height);
@@ -91,9 +92,13 @@ int main(int argc, char** argv) {
 //        	 radangl = asin(vecY/vecXY);
 //        	if(vecX > 0) radangl = -radangl;
 //        }
-//        
-        float angle_ = (radangl*(180.0/3.1415926));
-        angle_ = (angle_); 
+        float prev_angle = angle_;
+        angle_ = (radangl*(180.0/3.1415926));
+        float angle_diff = angle_ - prev_angle;
+        std::cout << "angle_diff = " << angle_diff << "\n";
+        //std::cout << "angle_ = " << angle_ << "\n";
+        //std::cout << "radangl = " << radangl << "\n";
+        //angle_ = (angle_); 
         ffw.set_aksellerasjon(0.981,angle_, true); 
         //std::cout << "vecXY = " << vecXY << "  angle_ = " << angle_ << "  vecX/vecXY  " << vecX/vecXY << "\n\n"; 
         
@@ -101,7 +106,7 @@ int main(int argc, char** argv) {
 //        	ff.updateXY(windows_width);
 //        }
         //std::cout << "index = " << index << "\n";
-		--index;
+		--index; 
 //		if(index == 0) {
 //			ffw = ffw_copy;
 //			index = 400;	
