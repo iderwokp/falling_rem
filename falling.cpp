@@ -54,20 +54,20 @@ int main(int argc, char** argv) {
 //	ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{500,windows_height-100}, 30, 20, ac4.x_velocity(), -ac4.y_velocity(), 0.8, true});
 
     
-    Free_fall_widget ffw{"ball.bmp", renderer, windows_height, windows_width, 1000, Point{200,200}, 30, 20, ac.x_velocity(), ac.y_velocity(), 0.8, true};
+    Free_fall_widget ffw{"ball.bmp", renderer, windows_height, windows_width, 1000, Point{300,100}, 30, 20, ac.x_velocity(), ac.y_velocity(), 0.8, true};
     //ffw.set_aksellerasjon(0.981f,0.981f); 
     //ffw.set_aksellerasjon(0.981f,90);
      
 //    for(auto& ff: ffws) {
 //        	ff.set_aksellerasjon(aks);
 //        }
-    int index{700}; 
+    int index{650}; 
     const double midwinX = windows_width/2;
     const double midwinY = windows_height/2;
     //std::cout << "midwinX = " << midwinX << "  midwinY = " << midwinY << "\n"; 
 	//while(!quit) {
 	//const double storK {1000000};
-	float angle_{0.0f};
+	float angle_{.0f};
 	while(index >=0 && !quit) {
 	
         EventHandler(event, quit, windows_width, windows_height);
@@ -96,7 +96,12 @@ int main(int argc, char** argv) {
         angle_ = (radangl*(180.0/3.1415926));
         float angle_diff = angle_ - prev_angle;
         std::cout << "angle_diff = " << angle_diff << "\n";
-        //std::cout << "angle_ = " << angle_ << "\n";
+        if(abs(angle_diff ) >1) {
+        	float add_v = (angle_diff/abs(angle_diff))*1;
+			angle_ += add_v;
+			std::cout << "add_v = " << add_v << "\n";
+		}
+        std::cout << "angle_ = " << angle_ << "\n\n";
         //std::cout << "radangl = " << radangl << "\n";
         //angle_ = (angle_); 
         ffw.set_aksellerasjon(0.981,angle_, true); 
