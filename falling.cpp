@@ -9,6 +9,8 @@
 #include "free_fall_widget.h"
 #include "aconverter.h"
 
+std::pair<double, double> endKoord(double startX, double startY, double rad_vinkel, double lengde);
+
 
 void EventHandler(SDL_Event event, bool& quit, int ww, int wh) {
     SDL_PollEvent(&event);
@@ -54,14 +56,14 @@ int main(int argc, char** argv) {
 //	ffws.push_back(Free_fall_widget{"ball.bmp", renderer, windows_height, windows_width, 200, Point{500,windows_height-100}, 30, 20, ac4.x_velocity(), -ac4.y_velocity(), 0.8, true});
 
     
-    Free_fall_widget ffw{"ball.bmp", renderer, windows_height, windows_width, 1000, Point{300,100}, 30, 20, ac.x_velocity(), ac.y_velocity(), 0.8, true};
+    Free_fall_widget ffw{"ball.bmp", renderer, windows_height, windows_width, 1000, Point{100,500}, 30, 20, ac.x_velocity(), ac.y_velocity(), 0.8, true};
     //ffw.set_aksellerasjon(0.981f,0.981f); 
     //ffw.set_aksellerasjon(0.981f,90);
      
 //    for(auto& ff: ffws) {
 //        	ff.set_aksellerasjon(aks);
 //        }
-    int index{650}; 
+    int index{1650}; 
     const double midwinX = windows_width/2;
     const double midwinY = windows_height/2;
     //std::cout << "midwinX = " << midwinX << "  midwinY = " << midwinY << "\n"; 
@@ -102,6 +104,7 @@ int main(int argc, char** argv) {
 			std::cout << "add_v = " << add_v << "\n";
 		}
         std::cout << "angle_ = " << angle_ << "\n\n";
+        auto [endX, endY] = endKoord(x, y, radangl, vecXY);
         //std::cout << "radangl = " << radangl << "\n";
         //angle_ = (angle_); 
         ffw.set_aksellerasjon(0.981,angle_, true); 
@@ -118,18 +121,28 @@ int main(int argc, char** argv) {
 //			ffw.set_aksellerasjon(aks); 
 //		}
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
-		//SDL_RenderClear(renderer); 
+		SDL_RenderClear(renderer); 
 	    
 	    SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
         
 			SDL_RenderDrawLine(renderer, 0,midwinY, windows_width,midwinY);
 			SDL_RenderDrawLine(renderer, midwinX,0, midwinX, windows_height);
+			SDL_RenderDrawLine(renderer, x,y, endX, endY);
+			
 			ffw.updateXY(windows_width);
 			SDL_RenderPresent(renderer);
 		SDL_Delay(5);   
     }
 
     SDL_Quit();
+}
+
+std::pair<double, double> endKoord(double startX, double startY, double rad_vinkel, double lengde) {
+	
+	double x = lengde*cos(rad_vinkel);
+	double y = lengde*sin(rad_vinkel);
+	return std::make_pair(x+startX, y+startY);
+	
 }
 
 // if(avstand/2000 > windows_height-30 && notbottom == true) {
